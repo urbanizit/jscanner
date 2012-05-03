@@ -1,5 +1,6 @@
 package org.urbanizit.jscanner.transfert.itf;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.urbanizit.jscanner.transfert.Archive;
@@ -13,7 +14,7 @@ import org.urbanizit.jscanner.transfert.ArchiveCriteria;
  * 
  * @author ldassonville
  */
-public interface ArchiveServiceItf {
+public interface ArchiveServiceItf extends Serializable {
 	
 	/**
 	 * Register an archive.

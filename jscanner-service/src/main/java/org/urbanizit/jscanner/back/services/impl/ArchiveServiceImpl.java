@@ -15,7 +15,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.urbanizit.jscanner.analyser.resolver.OwnerGroupResolver;
 import org.urbanizit.jscanner.back.common.converter.Bo2DtoIConverter;
 import org.urbanizit.jscanner.back.common.converter.DtoI2BoConverter;
 import org.urbanizit.jscanner.back.common.resolver.ArchiveClassNameResolver;
@@ -51,7 +50,7 @@ import org.urbanizit.jscanner.transfert.itf.ArchiveServiceItf;
  * Service dedicated to archives.
  * @author ldassonville
  */
-@Service
+//@Service
 public class ArchiveServiceImpl implements ArchiveServiceItf{
 
 	@Inject private ArchiveDaoItf archiveDao;

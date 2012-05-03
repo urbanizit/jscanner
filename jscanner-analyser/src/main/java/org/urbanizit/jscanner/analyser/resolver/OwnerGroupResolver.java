@@ -27,7 +27,7 @@ public class OwnerGroupResolver {
     	//Nom de fichier sans version
     	if(archive instanceof EarArchive || archive instanceof WarArchive){    		
     		String filename =  archive.getName();
-    		return ArchiveNameUtils.getBasicComponentName(filename)+"."+ArchiveNameUtils.getExtension(filename);
+    		return ArchiveNameUtils.getComponentBaseName(filename)+"."+ArchiveNameUtils.getExtension(filename);
     	}
     	
       	if(archive == null || !Boolean.TRUE.equals(archive.getCompagnyFile())){
