@@ -40,13 +40,26 @@
 	</bean>
 	
 	
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://localhost:5432/jscanner-08032012" />
 		<property name="username" value="jscanner" />
 		<property name="password" value="jscanner" />
+	</bean>
+
+	
+	<bean id="accountService" class="org.urbanizit.jscanner.back.services.impl.ArchiveServiceImpl">
+    <!-- any additional properties, maybe a DAO? -->
+	</bean>
+	
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	    <!-- does not necessarily have to be the same name as the bean to be exported -->
+	    <property name="service" ref="accountService"/>
+	    <property name="serviceName" value="account-service"/>
+	    <property name="serviceInterface" value="org.urbanizit.jscanner.transfert.itf.ArchiveServiceItf"/>
+	    <!-- defaults to 1099 -->
+	    <property name="registryPort" value="1234"/>
 	</bean>
 	
     <!-- supports Spring's exception translation for @Repository annotated classes--> 
