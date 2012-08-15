@@ -54,7 +54,6 @@ import org.urbanizit.jscanner.transfert.itf.ArchiveServiceItf;
 @Service @Named("ArchiveServiceImpl")
 public class ArchiveServiceImpl implements ArchiveServiceItf{
 
-
 	private static final long serialVersionUID = 1L;
 	
 	@Inject private ArchiveDaoItf archiveDao;

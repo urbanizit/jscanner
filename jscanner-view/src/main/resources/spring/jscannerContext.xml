@@ -47,21 +47,6 @@
 		<property name="password" value="jscanner" />
 	</bean>
 
-	
-	<bean id="accountService" class="org.urbanizit.jscanner.back.services.impl.ArchiveServiceImpl">
-    <!-- any additional properties, maybe a DAO? -->
-	</bean>
-	
-	
-	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
-	    <!-- does not necessarily have to be the same name as the bean to be exported -->
-	    <property name="service" ref="accountService"/>
-	    <property name="serviceName" value="account-service"/>
-	    <property name="serviceInterface" value="org.urbanizit.jscanner.transfert.itf.ArchiveServiceItf"/>
-	    <!-- defaults to 1099 -->
-	    <property name="registryPort" value="1234"/>
-	</bean>
-	
     <!-- supports Spring's exception translation for @Repository annotated classes--> 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
