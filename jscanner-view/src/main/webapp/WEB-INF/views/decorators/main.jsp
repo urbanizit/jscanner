@@ -9,9 +9,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>JScanner</title>
+    <title>jscanner</title>
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Urbanizit">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>

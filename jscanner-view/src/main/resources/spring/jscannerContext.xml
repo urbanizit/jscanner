@@ -32,7 +32,7 @@
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="false" />
-				<property name="generateDdl" value="true" />
+				<property name="generateDdl" value="false" />
 				<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
 			</bean>
 		</property>
@@ -42,7 +42,7 @@
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/jscanner-08032012" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/jscanner" />
 		<property name="username" value="jscanner" />
 		<property name="password" value="jscanner" />
 	</bean>

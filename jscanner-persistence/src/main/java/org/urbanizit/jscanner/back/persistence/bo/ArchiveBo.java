@@ -60,11 +60,11 @@ public abstract class ArchiveBo implements EntityItf<Long> {
 	private Date registrationDate;
 	
 	/** Class files **/
-	@Column(name="IS_COMPAGNY_FILE", nullable=false)
+	@Column(name="IS_COMPAGNY_FILE", nullable=true)
 	private Boolean compagnyFile;	
 	
 	/** Is Archive file **/
-	@Column(name="IS_WS_ARTIFACT", nullable=false)
+	@Column(name="IS_WS_ARTIFACT", nullable=true)
 	private boolean wsArtifact;	
 	
 	@Column(name="OWNER_GROUP", nullable=true, updatable=true)
