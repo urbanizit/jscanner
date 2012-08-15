@@ -25,4 +25,24 @@
 
     <tx:annotation-driven mode="aspectj"/>
 
+	<!-- Remote Archive service exposition --> 	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	    <!-- does not necessarily have to be the same name as the bean to be exported -->
+	    <property name="service" ref="ArchiveServiceImpl"/>
+	    <property name="serviceName" value="ArchiveServiceImpl"/>
+	    <property name="serviceInterface" value="org.urbanizit.jscanner.transfert.itf.ArchiveServiceItf"/>
+	    <!-- defaults to 1099 -->
+	    <property name="registryPort" value="1299"/>
+	</bean>
+		
+	<!-- Remote Analyse service exposition --> 	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	    <!-- does not necessarily have to be the same name as the bean to be exported -->
+	    <property name="service" ref="AnalyseServiceImpl"/>
+	    <property name="serviceName" value="AnalyseServiceImpl"/>
+	    <property name="serviceInterface" value="org.urbanizit.jscanner.transfert.itf.AnalyseServiceItf"/>
+	    <!-- defaults to 1099 -->
+	    <property name="registryPort" value="1299"/>
+	</bean>
+		
 </beans>

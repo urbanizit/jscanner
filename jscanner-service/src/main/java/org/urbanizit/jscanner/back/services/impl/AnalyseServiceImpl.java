@@ -13,6 +13,7 @@ import javax.inject.Named;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.urbanizit.jscanner.back.common.converter.Bo2DtoIConverter;
 import org.urbanizit.jscanner.back.common.converter.DtoI2BoConverter;
@@ -41,7 +42,7 @@ import org.urbanizit.jscanner.transfert.itf.AnalyseServiceItf;
  * Service dedicated to archives.
  * @author ldassonville
  */
-@Named
+@Service @Named("AnalyseServiceImpl")
 @Transactional
 public class AnalyseServiceImpl implements AnalyseServiceItf{
 

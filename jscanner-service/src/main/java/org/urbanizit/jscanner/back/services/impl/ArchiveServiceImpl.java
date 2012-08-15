@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,9 +51,12 @@ import org.urbanizit.jscanner.transfert.itf.ArchiveServiceItf;
  * Service dedicated to archives.
  * @author ldassonville
  */
-//@Service
+@Service @Named("ArchiveServiceImpl")
 public class ArchiveServiceImpl implements ArchiveServiceItf{
 
+
+	private static final long serialVersionUID = 1L;
+	
 	@Inject private ArchiveDaoItf archiveDao;
 	@Inject private PackageNameDaoItf packageNameDao;
 	@Inject private ClassNameDaoItf classNameDao;
