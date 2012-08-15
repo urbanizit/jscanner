@@ -1,10 +1,13 @@
 package org.urbanizit.jscanner.transfert;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class ArchiveDependencyReport {
+public class ArchiveDependencyReport implements Serializable{
 		
+	private static final long serialVersionUID = 1L;
+	
 	private Archive archiveProvider;
 	private Archive archiveCustormer;
 	

@@ -1,8 +1,11 @@
 package org.urbanizit.jscanner.transfert;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class ArchiveCriteria {
+public class ArchiveCriteria implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String checksum;
 	private Collection<String> archiveNames;

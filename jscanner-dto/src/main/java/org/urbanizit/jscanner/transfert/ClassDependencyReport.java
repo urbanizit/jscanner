@@ -1,9 +1,12 @@
 package org.urbanizit.jscanner.transfert;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class ClassDependencyReport {
+public class ClassDependencyReport implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
 	private ClassFile classProvider;
 	private ClassFile classCustomer;
