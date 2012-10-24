@@ -19,23 +19,20 @@ import org.springframework.transaction.annotation.Transactional;
 import org.urbanizit.jscanner.back.common.converter.Bo2DtoIConverter;
 import org.urbanizit.jscanner.back.common.converter.DtoI2BoConverter;
 import org.urbanizit.jscanner.back.common.resolver.ArchiveClassNameResolver;
-import org.urbanizit.jscanner.back.common.resolver.ArchiveMethodReferenceResolver;
 import org.urbanizit.jscanner.back.common.resolver.ArchiveMethodSignatureResolver;
 import org.urbanizit.jscanner.back.common.resolver.ArchivePackageResolver;
-import org.urbanizit.jscanner.back.common.resolver.pojo.MethodReferenceIdentifier;
+import org.urbanizit.jscanner.back.common.resolver.pojo.MethodSignatureIdentifier;
 import org.urbanizit.jscanner.back.persistence.bo.ArchiveBo;
 import org.urbanizit.jscanner.back.persistence.bo.ClassFileBo;
 import org.urbanizit.jscanner.back.persistence.bo.ClassNameBo;
 import org.urbanizit.jscanner.back.persistence.bo.MethodBo;
 import org.urbanizit.jscanner.back.persistence.bo.MethodCallBo;
-import org.urbanizit.jscanner.back.persistence.bo.MethodReferenceBo;
 import org.urbanizit.jscanner.back.persistence.bo.MethodSignatureBo;
 import org.urbanizit.jscanner.back.persistence.bo.NestableArchiveBo;
 import org.urbanizit.jscanner.back.persistence.bo.PackageNameBo;
 import org.urbanizit.jscanner.back.persistence.criteria.ArchiveBoCriteria;
 import org.urbanizit.jscanner.back.persistence.itf.ArchiveDaoItf;
 import org.urbanizit.jscanner.back.persistence.itf.ClassNameDaoItf;
-import org.urbanizit.jscanner.back.persistence.itf.MethodReferenceDaoItf;
 import org.urbanizit.jscanner.back.persistence.itf.MethodSignatureDaoItf;
 import org.urbanizit.jscanner.back.persistence.itf.PackageNameDaoItf;
 import org.urbanizit.jscanner.transfert.Archive;
@@ -60,7 +57,6 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 	@Inject private PackageNameDaoItf packageNameDao;
 	@Inject private ClassNameDaoItf classNameDao;
 	@Inject private MethodSignatureDaoItf methodSignatureDao;
-	@Inject private MethodReferenceDaoItf methodReferenceDao;
 	@Autowired private ApplicationContext applicationContext;
 	
 	private final Logger logger = LoggerFactory.getLogger(ArchiveServiceImpl.class);
@@ -68,32 +64,7 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 	private ArchiveServiceItf getTransactionProxy(){
 		return applicationContext.getBean(ArchiveServiceItf.class);
 	}
-	
-	@Transactional
-	public void applyOwnerGroups(final Long archiveId)throws Exception{		
-		ArchiveBo archive = archiveDao.findById(archiveId);				
-		applyOwnerGroups(archive);		
-	}
-
-	@Transactional
-	public void applyOwnerGroups(ArchiveBo archive)throws Exception{
-	/*				
-		archive.setOwnerGroup(OwnerGroupResolver.resolveOwner(archive));
-		archive = archiveDao.update(archive);		
-		if(archive instanceof NestableArchiveBo){
-			NestableArchiveBo	nestableArchive = (NestableArchiveBo)archive;
-			
-			Collection<ArchiveBo> nestedArchives = nestableArchive.getSubArchives();
-			
-			if(nestedArchives != null){				
-				for (ArchiveBo nestedArchive : nestedArchives) {
-					applyOwnerGroups(nestedArchive);
-				}				
-			}			
-		}	*/
-	}
-	
-	
+		
 	public List<Archive> findArchiveByCriteria(ArchiveCriteria criteriaDtoI)throws Exception {
 		if(criteriaDtoI == null){
 			throw new Exception("Archive required");
@@ -140,8 +111,7 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 	public ClassFileBo saveClassFile(ClassFile classFileDtoI, ArchiveBo archive, 
 				Map<String, PackageNameBo> packageNameCache, 
 				Map<String, ClassNameBo> classNameCache, 
-				Map<String, MethodSignatureBo> methodSignatureCache,
-				Map<MethodReferenceIdentifier, MethodReferenceBo> methodReferenceCache){
+				Map<MethodSignatureIdentifier, MethodSignatureBo> methodSignatureCache){
 		
 
 		ClassFileBo classFile = DtoI2BoConverter.convert(classFileDtoI);		
@@ -171,8 +141,7 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 		if(classFileDtoI.getMethods() != null){
 			for(Method methodDtoI : classFileDtoI.getMethods()){
 				MethodBo method = DtoI2BoConverter.convert(methodDtoI);
-				method.setSignature(methodSignatureCache.get(methodDtoI.getMethodSignature()));
-				method.setMethodReference(methodReferenceCache.get(new MethodReferenceIdentifier(classFileDtoI.getCanonicalName(), methodDtoI.getMethodSignature())));
+				method.setSignature(methodSignatureCache.get(new MethodSignatureIdentifier(classFileDtoI.getCanonicalName(), methodDtoI.getMethodSignature())));
 				classFile.addMethod(method);
 			}
 		}
@@ -181,9 +150,7 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 		if(classFileDtoI.getMethodCalls() != null){
 			for(MethodCall methodCallDtoI : classFileDtoI.getMethodCalls()){
 				MethodCallBo methodCall = DtoI2BoConverter.convert(methodCallDtoI);				
-				methodCall.setSignature(methodSignatureCache.get(methodCallDtoI.getMethodSignature()));
-				methodCall.setClassName(classNameCache.get(methodCallDtoI.getClassName()));
-				methodCall.setMethodReference(methodReferenceCache.get(new MethodReferenceIdentifier(methodCallDtoI.getClassName(), methodCallDtoI.getMethodSignature())));
+				methodCall.setSignature(methodSignatureCache.get(new MethodSignatureIdentifier(methodCallDtoI.getClassName(), methodCallDtoI.getMethodSignature())));
 				classFile.addMethodCall(methodCall);	
 			}
 		}
@@ -217,16 +184,10 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 		System.out.println("time calculating classNames : "+ (progession - time) /1000+" "+classNameCache.size() +" elements");
 		
 		time = System.currentTimeMillis();
-		Map<String, MethodSignatureBo> methodSignatureCache = new ArchiveMethodSignatureResolver(methodSignatureDao, false).resolve(archiveDtoI);
+		Map<MethodSignatureIdentifier, MethodSignatureBo> methodSignatureCache = new ArchiveMethodSignatureResolver(methodSignatureDao, classNameDao, classNameCache, false).resolve(archiveDtoI);
 		progession = System.currentTimeMillis();		
 		System.out.println("time calculating methodSignature : "+ (progession - time) /1000+" "+methodSignatureCache.size() +" elements");
-		
-		time = System.currentTimeMillis();
-		Map<MethodReferenceIdentifier, MethodReferenceBo> methodReferenceCache =new ArchiveMethodReferenceResolver(methodReferenceDao, false, classNameCache, methodSignatureCache).resolve(archiveDtoI);		
-		progession = System.currentTimeMillis();		
-		System.out.println("time calculating methodReferences : "+ (progession - time) /1000+" "+methodReferenceCache.size() +" elements");
-
-		
+			
 		ArchiveBo archive = DtoI2BoConverter.convert(archiveDtoI);
 		archive.setRegistrationDate(new Date());
 		
@@ -257,7 +218,7 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 		//Adding archive classFile		
 		if(archiveDtoI.getClassFiles() != null){
 			for (ClassFile classFileDtoI : archiveDtoI.getClassFiles()) {
-				archive.addClassFiles(saveClassFile(classFileDtoI, archive, packageNameCache, classNameCache, methodSignatureCache, methodReferenceCache));
+				archive.addClassFiles(saveClassFile(classFileDtoI, archive, packageNameCache, classNameCache, methodSignatureCache));
 			}
 		}
 		archive =  archiveDao.save(archive);	

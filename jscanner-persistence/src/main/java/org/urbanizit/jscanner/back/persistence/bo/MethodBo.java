@@ -38,13 +38,7 @@ public class MethodBo implements EntityItf<Long>  {
 	/** Origin class File **/
 	@ManyToOne @JoinColumn(name = "CLASS_FILE_ID", nullable=false)
 	private ClassFileBo classFile;
-		
-	/** method signature name **/
-	@ManyToOne
-	@JoinColumn(name= "METHOD_REFERENCE_ID", nullable=false)
-	private MethodReferenceBo methodReference;
-	
-	
+
 	public MethodBo(){}
 	
 	public MethodBo(Long id){
@@ -86,14 +80,6 @@ public class MethodBo implements EntityItf<Long>  {
 
 	public void setClassFile(ClassFileBo classFile) {
 		this.classFile = classFile;
-	}
-	
-	public MethodReferenceBo getMethodReference() {
-		return methodReference;
-	}
-
-	public void setMethodReference(MethodReferenceBo methodReference) {
-		this.methodReference = methodReference;
 	}
 	
 	public boolean isConstructor() {

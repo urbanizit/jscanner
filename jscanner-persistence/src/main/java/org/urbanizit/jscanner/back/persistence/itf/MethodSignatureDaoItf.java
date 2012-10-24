@@ -22,5 +22,5 @@ public interface MethodSignatureDaoItf extends GenericDaoItf<MethodSignatureBo, 
 	 * @param classNames
 	 * @return
 	 */
-	List<MethodSignatureBo> findByMethodSignatureIn(final Collection<String> methodSignatures);
+	List<MethodSignatureBo> findByFullyQualifiedMethodSignatureIn(final Collection<String> methodSignatures);
 }

@@ -1,3 +1,5 @@
+CREATE INDEX archive_checksum_idx ON class_file (checksum);
+
 CREATE INDEX class_file_archive_id_idx ON class_file (archive_id);
 CREATE INDEX class_file_checksum_idx ON class_file (checksum);
 CREATE INDEX class_file_package_name_idx ON class_file (package_name_id);

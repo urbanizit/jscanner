@@ -17,9 +17,8 @@ import javassist.CtField;
 import javassist.NotFoundException;
 import javassist.expr.ExprEditor;
 
-
 import org.urbanizit.jscanner.analyser.resolver.MethodSignatureResolver;
-import org.urbanizit.jscanner.analyser.scanner.utils.ClassUtils;
+import org.urbanizit.jscanner.core.utils.ClassUtils;
 import org.urbanizit.jscanner.transfert.Archive;
 import org.urbanizit.jscanner.transfert.ClassFile;
 import org.urbanizit.jscanner.transfert.Method;

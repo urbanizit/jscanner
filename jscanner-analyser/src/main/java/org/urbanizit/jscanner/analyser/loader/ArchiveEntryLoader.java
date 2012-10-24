@@ -11,7 +11,7 @@ import org.apache.commons.io.IOUtils;
 import org.urbanizit.jscanner.ArchiveTypes;
 import org.urbanizit.jscanner.analyser.scanner.AbstractArchiveScanner;
 import org.urbanizit.jscanner.analyser.scanner.factory.ScannerFactory;
-import org.urbanizit.jscanner.analyser.scanner.utils.FileUtils;
+import org.urbanizit.jscanner.core.utils.FileUtils;
 import org.urbanizit.jscanner.transfert.Archive;
 import org.urbanizit.jscanner.transfert.NestableArchive;
 
@@ -70,7 +70,7 @@ public class ArchiveEntryLoader extends AbstractArchiveEntryLoader {
 		
 		File file = null, filePath = null;
 		FileOutputStream os = null;
-		String path = "./tmp"+Math.random()+"/";
+		String path = "./working_dir/tmp_"+System.nanoTime()+"/";
 		try {
 			
 			//Create work directory

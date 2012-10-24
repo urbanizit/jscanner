@@ -44,5 +44,14 @@
 	    <!-- defaults to 1099 -->
 	    <property name="registryPort" value="1299"/>
 	</bean>
-		
+			
+	<!-- Remote Analyse service exposition --> 	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	    <!-- does not necessarily have to be the same name as the bean to be exported -->
+	    <property name="service" ref="MetaDataServiceImpl"/>
+	    <property name="serviceName" value="MetaDataServiceImpl"/>
+	    <property name="serviceInterface" value="org.urbanizit.jscanner.transfert.itf.MetaDataServiceItf"/>
+	    <!-- defaults to 1099 -->
+	    <property name="registryPort" value="1299"/>
+	</bean>	
 </beans>

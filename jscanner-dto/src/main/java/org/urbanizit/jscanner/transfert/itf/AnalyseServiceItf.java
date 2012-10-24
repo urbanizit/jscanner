@@ -31,8 +31,9 @@ public interface AnalyseServiceItf {
 	Graph getDependencyGraph(final ArrayList<Long> archiveIds, final ArrayList<Long> archiveWhiteListIds) throws Exception;
 	
 	/**
-	 * Give archive Depend On the given archive. 
+	 * Give all archives who depend on the given archive. 
 	 * If a white List is given, return only archive included in the white list
+	 * 
 	 * @param archiveId Archive Id
 	 * @param archiveWhiteList Archive Id White List
 	 * @return Archives depend on the give Archive
@@ -41,8 +42,9 @@ public interface AnalyseServiceItf {
 	List<Archive> findDependOnArchives(final Long archiveId, final ArrayList<Long> archiveWhiteList) throws Exception;
 	
 	/**
-	 * Give archive Depend the given archive. 
+	 * Give all archives used (depend) by the given archive. 
 	 * If a white List is given, return only archive included in the white list
+	 * 
 	 * @param archiveId Archive Id
 	 * @param archiveWhiteList Archive Id White List
 	 * @return Archives depend on the give Archive
@@ -82,7 +84,7 @@ public interface AnalyseServiceItf {
 		
 
 	/**
-	 * Give class in conflict beetween two archives
+	 * Give class in conflict between two archives
 	 * @param archive1Id
 	 * @param archive2Id
 	 * @return

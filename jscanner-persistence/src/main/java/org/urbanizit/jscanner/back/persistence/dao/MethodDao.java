@@ -42,9 +42,9 @@ public class MethodDao extends AbstractDao<MethodBo, Long>  implements MethodDao
 	public List<MethodBo> findMethodDependencies(final Collection<Long> archiveProviders, final Collection<Long> archiveCustomers) {
 		
 		String ejbSqlquery = " select distinct(method) "+
-	      " from Archive as archive1 join archive1.classFiles as classFile1 " +
+	      " from ArchiveBo as archive1 join archive1.classFiles as classFile1 " +
 		  "      join classFile1.methods method, " +
-		  "      Archive as archive2 join archive2.classFiles as classFile2" +
+		  "      ArchiveBo as archive2 join archive2.classFiles as classFile2" +
 		  "      join classFile2.methodCalls methodCall " +
 		  " where archive1.id in(:archiveProvider) " +
 		  " and archive2.id in(:archiveCustomer) " +

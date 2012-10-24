@@ -35,6 +35,4 @@ public interface ArchiveServiceItf extends Serializable {
 
 	
 	public Long saveArchiveNonRecursif(Archive archiveDtoI )throws Exception;
-	
-	public void applyOwnerGroups(final Long archiveId)throws Exception;
 }

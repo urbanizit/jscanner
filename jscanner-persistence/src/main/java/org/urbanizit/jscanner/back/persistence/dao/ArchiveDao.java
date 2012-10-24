@@ -46,8 +46,6 @@ public class ArchiveDao extends AbstractDao<ArchiveBo, Long>  implements Archive
 				
 		Map<String, Object> params = new HashMap<String, Object>();
 		
-		
-		
 		if(criteria.getArchiveNames() != null){
 			Collection<String> archivesNames = criteria.getArchiveNames();
 			if(archivesNames.size() == 1){
@@ -148,45 +146,8 @@ public class ArchiveDao extends AbstractDao<ArchiveBo, Long>  implements Archive
 					  "              join classFile2.classDependencies as classDependency2 " +
 					  " where archive1 <> archive2 " +
 					  " and classDependency2.id = classFile1.className.id " +
-					  " and archive1.id in (:archiveIds) ";
-		if(archiveWhiteListIds != null && !archiveWhiteListIds.isEmpty()){
-			ejbSqlquery += " and archive2.id in (:archiveWhiteListIds) ";
-		}
-		Query query =  getEntityManager().createQuery(ejbSqlquery);
-		query.setParameter("archiveIds", archiveIds);	
-		if(archiveWhiteListIds != null && !archiveWhiteListIds.isEmpty()){
-			query.setParameter("archiveWhiteListIds", archiveWhiteListIds);	
-		}	
-				
-		List<Object[]> queryResults =  query.getResultList();
-		
-		//Object conversion
-		List<ArchiveDependency> res = new ArrayList<ArchiveDependency>();
-		if(queryResults != null){
-			for (Object[] objects : queryResults) {
-				res.add(new ArchiveDependency(((Long)objects[0]), ((Long)objects[1])));
-			}
-		}
-		return res;
-	}
-
-
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	public List<ArchiveDependency> findDependOnArchives2( final Collection<Long> archiveIds ,  final Collection<Long> archiveWhiteListIds ){
-			
-		String ejbSqlquery = 
-					  " select distinct archive1.id, archive2.id " +
-				      " from ArchiveBo as archive1 join archive1.classFiles as classFile1 " +
-				      "  			 join classFile1.methodCalls  as methodCall1, " +	  
-					  "      ArchiveBo as archive2 join archive2.classFiles as classFile2  " +
-					  "              join classFile2.methods as method2 " +
-					  " where archive1 <> archive2 " +
-					  " and methodCall1.signature.id = method2.signature.id " +
-					  " and archive1.id in (:archiveIds) ";
+					  " and archive1.id in (:archiveIds) "+
+				      " and archive2.ownerGroup <> archive1.ownerGroup ";
 		if(archiveWhiteListIds != null && !archiveWhiteListIds.isEmpty()){
 			ejbSqlquery += " and archive2.id in (:archiveWhiteListIds) ";
 		}

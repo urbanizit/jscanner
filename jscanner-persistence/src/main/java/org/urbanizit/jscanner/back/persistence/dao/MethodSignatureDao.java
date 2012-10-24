@@ -23,7 +23,7 @@ public class MethodSignatureDao extends AbstractDao<MethodSignatureBo, Long>  im
 	}
 
 	@Override
-	public List<MethodSignatureBo> findByMethodSignatureIn(Collection<String> methodSignatures) {
+	public List<MethodSignatureBo> findByFullyQualifiedMethodSignatureIn(Collection<String> methodSignatures) {
 		return findByNamedQuery("FIND_METHOD_SIGNATURE_IN", "methodSignatures", methodSignatures);
 	}
 	

@@ -33,12 +33,11 @@ import org.urbanizit.jscanner.transfert.itf.CatalogServiceItf;
 
 
 /**
- * @author ldassonville
+ * @author Loïc DASSONVILLE
  * @since 04.03.11
  */
 @Controller
 public class ArchiveController {
-
 
     private static final Logger log = LoggerFactory.getLogger(ArchiveController.class);
 
@@ -68,17 +67,10 @@ public class ArchiveController {
 				
 				dependArchives = accumulate(dependArchives, analyseServiceItfI.findDependArchives(archiveId, null)) ;
 				dependOnArchives = accumulate(dependOnArchives, analyseServiceItfI.findDependOnArchives(archiveId, null));
-					
-				if(nestedArchives != null){										
-					for (Archive subArchive :  nestedArchives) {
-						dependArchives = accumulate(dependArchives, analyseServiceItfI.findDependArchives(subArchive.getId(), null)) ;
-						dependOnArchives = accumulate(dependOnArchives, analyseServiceItfI.findDependOnArchives(subArchive.getId(), null));
-					}
-				}
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Error while searching archive content", e);
 		}
         model.addAttribute("archive", archiveDtoI);
         
@@ -114,7 +106,7 @@ public class ArchiveController {
 	    	
 	    	methodDependencies = analyseServiceItfI.getDependencyMethods(dependArchiveId, archiveId);
 	    } catch (Exception e) {
-			e.printStackTrace();
+	    	log.error("Error while explaining dependencies", e);
 		}
 	    model.addAttribute("classDependencies", classDependencies);  
 
@@ -124,15 +116,7 @@ public class ArchiveController {
     	return "archive/dependency/archive";
     }
    
-    
-    
-    protected List<Archive> lastVersionFilter(List<Archive> archive){
-    	List<Archive> res = new ArrayList<Archive>();
-    	
 
-    	
-    	return res;
-    }
     /**
      * Accumulator elements (initialize accumulator if required).
      * @param accumulateur
@@ -173,7 +157,7 @@ public class ArchiveController {
     private <T> List<T> sort(Collection<T> collection, Comparator<T> comparator){    
     	List<T> res = null;
 	    if(collection != null){
-	    	if(!(collection instanceof List)){
+	    	if(!(collection instanceof List<?>)){
 	    		res = new ArrayList<T>(collection);
 	    	}else{
 	    		res = (List<T>) collection;

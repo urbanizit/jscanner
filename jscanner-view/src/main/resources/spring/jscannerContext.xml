@@ -9,13 +9,21 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
        default-lazy-init="true" >
 
     <context:annotation-config/>
+    
+  	 <!-- Enable the @AspectJ support -->
+     <aop:aspectj-autoproxy />
+
+     <!-- bean id="serviceProfiler" class="org.urbanizit.jscanner.core.aop.ServicesProfiler" /-->
+
     
     <context:spring-configured/>
     
@@ -32,7 +40,7 @@
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="false" />
-				<property name="generateDdl" value="false" />
+				<property name="generateDdl" value="true" />
 				<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
 			</bean>
 		</property>
@@ -42,7 +50,7 @@
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/jscanner" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/jscanner-newModel" />
 		<property name="username" value="jscanner" />
 		<property name="password" value="jscanner" />
 	</bean>

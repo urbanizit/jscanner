@@ -1,10 +1,10 @@
 package org.urbanizit.jscanner.back.common.extractor;
 
-import org.urbanizit.jscanner.back.common.resolver.pojo.MethodReferenceIdentifier;
+import org.urbanizit.jscanner.back.common.resolver.pojo.MethodSignatureIdentifier;
 import org.urbanizit.jscanner.transfert.ClassFile;
 
 
-public class ArchiveMethodReferenceExtractor extends AbstractArchiveDataExtractor<MethodReferenceIdentifier> {
+public class ArchiveMethodReferenceExtractor extends AbstractArchiveDataExtractor<MethodSignatureIdentifier> {
 	
 	public ArchiveMethodReferenceExtractor(){};
 	
@@ -12,7 +12,7 @@ public class ArchiveMethodReferenceExtractor extends AbstractArchiveDataExtracto
 		isRecursiveExtraction = isRecursive;
 	}
 	
-	protected DataExtractor<ClassFile, MethodReferenceIdentifier> getExtractor(){		
+	protected DataExtractor<ClassFile, MethodSignatureIdentifier> getExtractor(){		
 		return new ClassFileMethodReferenceExtractor();
 	}
 }

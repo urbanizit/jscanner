@@ -77,7 +77,6 @@ public abstract class DtoI2BoConverter{
 		if(in == null) return null;
 		MethodCallBo  out = new MethodCallBo();		
 		out.setId(in.getId());	
-		out.setMethodName(in.getMethodName());
 		MethodSignatureBo methodSignature = new MethodSignatureBo();
 		methodSignature.setMethodSignature(in.getMethodSignature());
 		methodSignature.setReadableSignature(in.getMethodReadableSignature());

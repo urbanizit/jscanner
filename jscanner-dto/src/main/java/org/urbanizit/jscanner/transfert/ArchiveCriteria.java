@@ -18,6 +18,7 @@ public class ArchiveCriteria implements Serializable{
 	private Collection<Long> methodProvided;
 	private Collection<Long> methodCalled;
 	private Boolean compagnyFile;
+	private String ownerGroup;
 	
 	public String getChecksum() {
 		return checksum;
@@ -78,5 +79,11 @@ public class ArchiveCriteria implements Serializable{
 	}
 	public void setCompagnyFile(Boolean compagnyFile) {
 		this.compagnyFile = compagnyFile;
+	}
+	public String getOwnerGroup() {
+		return ownerGroup;
+	}
+	public void setOwnerGroup(String ownerGroup) {
+		this.ownerGroup = ownerGroup;
 	}
 }

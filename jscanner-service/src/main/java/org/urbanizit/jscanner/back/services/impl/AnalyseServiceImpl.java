@@ -60,8 +60,8 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 //		}		
 		Graph res = new Graph();		
 		
-		List<Long> extendedArchiveIds = extendsArchiveList(archiveIds);
-		List<Long> extendedWhiteListIds = extendsArchiveList(archiveWhiteListIds);
+		List<Long> extendedArchiveIds = extendsArchiveList(archiveIds, true);
+		List<Long> extendedWhiteListIds = extendsArchiveList(archiveWhiteListIds, true);
 		
 		Set<Long> graphArchivesIds = new HashSet<Long>();	
 		if(extendedArchiveIds != null){
@@ -102,7 +102,7 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 		}
 		Set<ArchiveBo> res = new HashSet<ArchiveBo>();
 		
-		List<Long> extendedList = extendsArchiveList(Arrays.asList(archiveId));
+		List<Long> extendedList = extendsArchiveList(Arrays.asList(archiveId), true);
 		List<ArchiveDependency> archivesDependencies = archiveDao.findDependArchives(extendedList, archiveIdsWhiteList);
 		
 		Set<Long> archivesIds = new HashSet<Long>();
@@ -131,7 +131,7 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 		}
 		Set<ArchiveBo> res = new HashSet<ArchiveBo>();
 		 	
-		List<Long> extendedList = extendsArchiveList(Arrays.asList(archiveId));
+		List<Long> extendedList = extendsArchiveList(Arrays.asList(archiveId), true);
 		List<ArchiveDependency> archivesDependencies = archiveDao.findDependOnArchives(extendedList, archiveIdsWhiteList);
 		
 		Set<Long> archivesIds = new HashSet<Long>();
@@ -251,36 +251,41 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 	}
 	
 	
-	public List<Long> extendsArchiveList(List<Long> archivesIds) throws Exception{
+	
+	public List<Long> extendsArchiveList(List<Long> archivesIds, boolean ownerFiltering) throws Exception{
 		
 		if(archivesIds == null){
 			return null;
 		}
 		
 		List<Long> extendedList = new ArrayList<Long>();	
-		for (Long archiveId : archivesIds) {
-			extendedList.addAll(getArchiveComposition(archiveId));
+		for (Long archiveId : archivesIds) {		
+			extendedList.addAll(getArchiveComposition(archiveId, ownerFiltering));
 		}	
 		return extendedList;
 	}
 	
-	private List<Long> getArchiveComposition(final Long archive) throws Exception{
+	private List<Long> getArchiveComposition(final Long archive, boolean ownerFiltering) throws Exception{
+		
+		ArchiveBo archiveBo = archiveDao.findById(archive);
 		
 		List<Long> archivesIds = new ArrayList<Long>();		
-		getArchiveComposition(archive, archivesIds);
+		getArchiveComposition(archive, archivesIds, archiveBo.getOwnerGroup());
 
 		return archivesIds;
 	}
 	
-	private void getArchiveComposition(final Long archiveId, final List<Long> idsAccumulator) throws Exception{
+	private void getArchiveComposition(final Long archiveId, final List<Long> idsAccumulator, String ownerGroup) throws Exception{
 		
 		ArchiveBo archive = archiveDao.findById(archiveId);
 		if(archive instanceof NestableArchiveBo){		
 			for (ArchiveBo subArchive : ((NestableArchiveBo) archive).getSubArchives()) {
-				getArchiveComposition(subArchive.getId(), idsAccumulator);
+				getArchiveComposition(subArchive.getId(), idsAccumulator, ownerGroup);
 			}			
 		}
-		idsAccumulator.add(archiveId);
+		if(ownerGroup == null || ownerGroup.equalsIgnoreCase(archive.getOwnerGroup())){
+			idsAccumulator.add(archiveId);
+		}
 	}
 	
 	
@@ -375,14 +380,20 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 		return res;
 	}
 
-	@Override
+	/**
+	 * @see org.urbanizit.jscanner.transfert.itf.AnalyseServiceItf#getDependencyMethods(java.lang.Long, java.lang.Long)
+	 */
 	public List<Method> getDependencyMethods(Long archiveProvider, Long archiveCustomer) throws Exception {
 		
-		List<Long> extendedCustomer  = extendsArchiveList(Arrays.asList(archiveCustomer));
-		List<MethodBo> methods = methodDao.findMethodDependencies(Arrays.asList(archiveProvider), extendedCustomer);
+		//Searching all IDs for nestable archives
+		List<Long> extendedCustomer  = extendsArchiveList(Arrays.asList(archiveCustomer), true);
+		List<Long> extendedProvider  = extendsArchiveList(Arrays.asList(archiveProvider), true);
 		
-		List<Method> res = new ArrayList<Method>();
+		//Resolving dependencies
+		List<MethodBo> methods = methodDao.findMethodDependencies(extendedProvider, extendedCustomer);
 		
+		//Converting results
+		List<Method> res = new ArrayList<Method>();		
 		if(methods != null){
 			for (MethodBo method : methods) {
 				res.add(Bo2DtoIConverter.convert(method));

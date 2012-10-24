@@ -15,6 +15,7 @@
 		Nom : <c:out value="${archive.name}" /> 
 		<br/>HashCode : <c:out value="${archive.checksum}" /> 
 		<br/>Date d'entregistrement : <c:out value="${archive.registrationDate}" /> 
+		<br/>Composant proprietaire  : <c:out value="${archive.ownerGroup}" /> 
 		
 <br/>
 		<h4>Archives embarquées</h4>

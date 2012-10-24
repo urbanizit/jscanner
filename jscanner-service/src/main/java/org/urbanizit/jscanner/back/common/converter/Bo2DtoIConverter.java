@@ -170,10 +170,8 @@ public abstract class Bo2DtoIConverter {
 		if(in == null) return null;
 		MethodCall  out = new MethodCall();		
 		out.setId(in.getId());	
-		out.setMethodName(in.getMethodName());
 		out.setMethodSignature(in.getSignature().getMethodSignature());
 		out.setMethodReadableSignature(in.getSignature().getReadableSignature());
-		out.setClassName(in.getClassName().getClassName());
 		return out;
 	}
 }
