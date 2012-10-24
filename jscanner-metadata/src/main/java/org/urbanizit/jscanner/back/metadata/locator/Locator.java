@@ -1,0 +1,8 @@
+package org.urbanizit.jscanner.back.metadata.locator;
+
+import java.util.List;
+
+public interface Locator<T> {
+
+	public List<T> locate();
+}
