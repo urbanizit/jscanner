@@ -1,11 +1,18 @@
 package org.urbanizit.jscanner.back.persistence.bo;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -33,6 +40,16 @@ public class ClassNameBo implements EntityItf<Long>  {
 	@Column(name = "HASHCODE", nullable = false, unique=false)	
 	private Integer hashCode ;
 	
+	@ManyToMany(cascade={})
+	@JoinTable(name="CLASS_FILE_CLASS_NAME",
+        joinColumns = @JoinColumn(name="CLASSDEPENDENCIES_CLASS_NAME_ID", referencedColumnName="CLASS_NAME_ID"),
+        inverseJoinColumns =  @JoinColumn(name="CLASS_FILE_CLASS_FILE_ID", referencedColumnName="CLASS_FILE_ID")) 
+	private Set<ClassFileBo> classFileDependencies;
+	
+	@OneToMany(cascade={}, mappedBy="className")
+	private Set<ClassFileBo> classFiles;	
+	
+	
 	public ClassNameBo(){}
 	
 
@@ -58,6 +75,28 @@ public class ClassNameBo implements EntityItf<Long>  {
 	public void setClassName(String className) {
 		this.className = className;
 	}
+	
+
+	public Set<ClassFileBo> getClassFileDependencies() {
+		return classFileDependencies;
+	}
+
+
+	public void setClassFileDependencies(Set<ClassFileBo> classFileDependencies) {
+		this.classFileDependencies = classFileDependencies;
+	}
+
+	
+
+	public Set<ClassFileBo> getClassFiles() {
+		return classFiles;
+	}
+
+
+	public void setClassFiles(Set<ClassFileBo> classFiles) {
+		this.classFiles = classFiles;
+	}
+
 
 	@Override
 	public String toString() {

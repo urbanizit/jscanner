@@ -6,7 +6,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <title>jscanner</title>
@@ -15,12 +15,11 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="/jscanner-view/resources/html5shim/js/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <!-- link href="../bootstrap.css" rel="stylesheet"-->
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <link rel="stylesheet" href="/jscanner-view/resources/bootstrap/1.4.0/bootstrap.min.css">
     <style type="text/css">
       body {
         padding-top: 60px;

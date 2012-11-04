@@ -23,6 +23,7 @@ import org.urbanizit.jscanner.transfert.ClassFile;
 import org.urbanizit.jscanner.transfert.Method;
 import org.urbanizit.jscanner.transfert.NestableArchive;
 import org.urbanizit.jscanner.transfert.itf.CatalogServiceItf;
+import org.urbanizit.jscanner.transfert.view.ArchiveView;
 
 
 /**
@@ -40,7 +41,9 @@ public class CatalogServiceImpl implements CatalogServiceItf{
 	private final Logger logger = LoggerFactory.getLogger(CatalogServiceImpl.class);
 
 	
-	public Archive getArchive(Long archiveId, Boolean deepSearch)	throws Exception {
+	public Archive getArchive(final Long archiveId, final Boolean deepSearch, final List<ArchiveView> views)	throws Exception {
+
+		List<ArchiveView> workingView = views;
 		
 		ArchiveBo archive  = archiveDao.findById(archiveId);		
 		if(archive == null){
@@ -48,20 +51,26 @@ public class CatalogServiceImpl implements CatalogServiceItf{
 			return null;
 		}
 		Archive res =  Bo2DtoIConverter.convert(archive);			
-		res.setClassFiles(Bo2DtoIConverter.convertClassFiles(archive.getClassFiles()));
+		if(workingView.contains(ArchiveView.FIRST_LEVEL_CLASS)){	
+			workingView = new ArrayList<ArchiveView>(workingView);
+			res.setClassFiles(Bo2DtoIConverter.convertClassFiles(archive.getClassFiles()));
+			workingView.remove(ArchiveView.FIRST_LEVEL_CLASS);
+		}
 		
 		if(Boolean.TRUE.equals(deepSearch) && (archive instanceof NestableArchiveBo)){
 			NestableArchiveBo nestableArchive = (NestableArchiveBo)archive;
 			NestableArchive nestableArchiveDtoI = (NestableArchive)res;
 			List<Archive> subArchives = new ArrayList<Archive>();			
 			for (ArchiveBo subArchive : nestableArchive.getSubArchives()) {
-				subArchives.add(getArchive(subArchive.getId(), deepSearch));
+				subArchives.add(getArchive(subArchive.getId(), deepSearch, workingView));
 			}
 			nestableArchiveDtoI.setSubArchives(subArchives);
 		}
 		return res;
 	}
 
+	
+	
 
 	public ClassFile getClassFile(Long classFileId) throws Exception{
 		ClassFile res = null;

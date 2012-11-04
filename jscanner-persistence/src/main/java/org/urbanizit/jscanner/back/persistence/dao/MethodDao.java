@@ -27,7 +27,7 @@ public class MethodDao extends AbstractDao<MethodBo, Long>  implements MethodDao
 		  " where archive1.id = :archiveProvider " +
 		  " and archive2.id = :archiveCustomer " +
 		  " and classFile1.isInterface = true " +
-		  " and methodCall.methodReference = method.methodReference ";
+		  " and methodCall.signature = method.signature ";
 		
 		Query query =  getEntityManager().createQuery(ejbSqlquery);
 		query.setParameter("archiveProvider", archiveProvider  );	
@@ -50,7 +50,7 @@ public class MethodDao extends AbstractDao<MethodBo, Long>  implements MethodDao
 		  " and archive2.id in(:archiveCustomer) " +
 		  " and classFile1.isInterface = true " +
 		  " and archive1.ownerGroup <> archive2.ownerGroup"+
-		  " and methodCall.methodReference = method.methodReference ";
+		  " and methodCall.signature = method.signature ";
 		
 		Query query =  getEntityManager().createQuery(ejbSqlquery);
 		query.setParameter("archiveProvider", archiveProviders  );	

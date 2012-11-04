@@ -15,7 +15,7 @@ public class CompanyFlagMetaDataApplier extends AbstractMetaDataApplier<ArchiveB
 	
 	private Logger logger = LoggerFactory.getLogger(CompanyFlagMetaDataApplier.class);
 	
-	private List<String> compagnyRootsPackages = Arrays.asList("com.mycompagny", "org.mycompagny");
+	private List<String> compagnyRootsPackages = Arrays.asList("com.vh", "com.vauban");
 	
 	/**
 	 * @see org.urbanizit.jscanner.back.common.metadata.applier.AbstractMetaDataApplier#apply(java.lang.Object)

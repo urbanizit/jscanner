@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +31,7 @@ import org.urbanizit.jscanner.transfert.NestableArchive;
 import org.urbanizit.jscanner.transfert.itf.AnalyseServiceItf;
 import org.urbanizit.jscanner.transfert.itf.ArchiveServiceItf;
 import org.urbanizit.jscanner.transfert.itf.CatalogServiceItf;
+import org.urbanizit.jscanner.transfert.view.ArchiveView;
 
 
 /**
@@ -56,8 +58,9 @@ public class ArchiveController {
     	Collection<Archive> dependArchives = null;
     	Collection<Archive> dependOnArchives = null;
     	
+    	System.out.println(new Date() +" Begin : ArchiveController ");
 		try {
-			archiveDtoI = catalogServiceItfI.getArchive(archiveId, true);
+			archiveDtoI = catalogServiceItfI.getArchive(archiveId, true, Arrays.asList(ArchiveView.FIRST_LEVEL_CLASS));
 			if(archiveDtoI != null){
 				Collections.sort(archiveDtoI.getClassFiles(), new ClassFileCNComparator());
 				
@@ -65,13 +68,17 @@ public class ArchiveController {
 					nestedArchives = ((NestableArchive) archiveDtoI).getSubArchives();
 				}
 				
+				log.debug("findDependArchives");
 				dependArchives = accumulate(dependArchives, analyseServiceItfI.findDependArchives(archiveId, null)) ;
+				log.debug("findDependOnArchives");
 				dependOnArchives = accumulate(dependOnArchives, analyseServiceItfI.findDependOnArchives(archiveId, null));
 			}
 			
 		} catch (Exception e) {
 			log.error("Error while searching archive content", e);
 		}
+		
+		log.debug("setting attributes");
         model.addAttribute("archive", archiveDtoI);
         
         nestedArchives = sort(nestedArchives, new ArchiveNameComparator());

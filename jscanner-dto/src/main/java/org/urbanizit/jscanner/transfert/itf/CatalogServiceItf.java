@@ -1,8 +1,11 @@
 package org.urbanizit.jscanner.transfert.itf;
 
+import java.util.List;
+
 import org.urbanizit.jscanner.transfert.Archive;
 import org.urbanizit.jscanner.transfert.ClassFile;
 import org.urbanizit.jscanner.transfert.Method;
+import org.urbanizit.jscanner.transfert.view.ArchiveView;
 
 
 
@@ -15,8 +18,7 @@ import org.urbanizit.jscanner.transfert.Method;
 public interface CatalogServiceItf {
 	
 	
-
-	Archive getArchive(final Long archiveId, final Boolean deepSearch)	throws Exception;
+	Archive getArchive(final Long archiveId, final Boolean deepSearch, final List<ArchiveView> views)	throws Exception;
 	
 	ClassFile getClassFile(final Long classFileId) throws Exception;
 	

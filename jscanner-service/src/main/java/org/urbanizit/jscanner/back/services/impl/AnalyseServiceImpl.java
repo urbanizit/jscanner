@@ -3,6 +3,7 @@ package org.urbanizit.jscanner.back.services.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,22 +103,26 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 		}
 		Set<ArchiveBo> res = new HashSet<ArchiveBo>();
 		
+		System.out.println(new Date() + " findDependArchives [step1]");
 		List<Long> extendedList = extendsArchiveList(Arrays.asList(archiveId), true);
 		List<ArchiveDependency> archivesDependencies = archiveDao.findDependArchives(extendedList, archiveIdsWhiteList);
 		
 		Set<Long> archivesIds = new HashSet<Long>();
 		if(archivesDependencies != null){
 			for (ArchiveDependency archiveDependency : archivesDependencies) {
-				archivesIds.add(archiveDependency.getCustomerId());
+				archivesIds.add(archiveDependency.getProviderId());
 			}
-		}		
+		}	
+		System.out.println(new Date() + " findDependArchives [step2]");
+		
 		List<List<Long>> splitedArchiveIdsList = CollectionsUtils.splitList(archivesIds, 500);
 		
 		for (List<Long> subList : splitedArchiveIdsList) {
 			ArchiveBoCriteria archiveCriteria = new ArchiveBoCriteria();
 			archiveCriteria.setArchiveIds(subList);
 			res.addAll(archiveDao.findByCriteria(archiveCriteria));
-		}		
+		}	
+		System.out.println(new Date() + " findDependArchives [step3]");
 		return Bo2DtoIConverter.convertArchives(res);
 	}
 	
@@ -130,10 +135,12 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 			throw new Exception("Archive Id required");
 		}
 		Set<ArchiveBo> res = new HashSet<ArchiveBo>();
-		 	
+		
+		System.out.println(new Date() + " findDependOnArchives [step1]");	
 		List<Long> extendedList = extendsArchiveList(Arrays.asList(archiveId), true);
 		List<ArchiveDependency> archivesDependencies = archiveDao.findDependOnArchives(extendedList, archiveIdsWhiteList);
 		
+		System.out.println(new Date() + " findDependOnArchives [step2]");	
 		Set<Long> archivesIds = new HashSet<Long>();
 		if(archivesDependencies != null){
 			for (ArchiveDependency archiveDependency : archivesDependencies) {
@@ -147,6 +154,7 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 			archiveCriteria.setArchiveIds(subList);
 			res.addAll(archiveDao.findByCriteria(archiveCriteria));
 		}
+		System.out.println(new Date() + " findDependOnArchives [step3]");	
 		return Bo2DtoIConverter.convertArchives(res);
 	}
 	
