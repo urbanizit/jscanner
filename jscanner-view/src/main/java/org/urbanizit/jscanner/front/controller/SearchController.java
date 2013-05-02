@@ -21,7 +21,7 @@ import org.urbanizit.jscanner.transfert.itf.AnalyseServiceItf;
 
 
 /**
- * @author Loïc DASSONVILLE
+ * @author Loic DASSONVILLE
  * 
  * @since 04.03.11
  */

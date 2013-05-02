@@ -35,7 +35,7 @@ import org.urbanizit.jscanner.transfert.view.ArchiveView;
 
 
 /**
- * @author Loïc DASSONVILLE
+ * @author Loic DASSONVILLE
  * @since 04.03.11
  */
 @Controller
