@@ -1,3 +1,3 @@
         <footer>
-          <p>&copy; Organizit 2012</p>
+          <p>&copy; Urbanizit 2013</p>
         </footer>
