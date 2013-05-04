@@ -9,6 +9,8 @@ import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.urbanizit.jscanner.transfert.Archive;
 
 
@@ -18,6 +20,8 @@ import org.urbanizit.jscanner.transfert.Archive;
  */
 public class ManifestEntryLoader extends AbstractArchiveEntryLoader {
 
+	private Logger logger = LoggerFactory.getLogger(ManifestEntryLoader.class);
+	
 	private static final String MANIFEST_DIRECTORY = "META-INF";
 	
 	private static final String MANIFEST_EXTENSION = ".MF";
@@ -40,7 +44,7 @@ public class ManifestEntryLoader extends AbstractArchiveEntryLoader {
 	 * {@inheritDoc}
 	 */
 	protected void processLoading(final String fileName, final InputStream is, final Archive archive)throws Exception {
-		//TODO corriger
+		//TODO correct it
 		//archive.setManifest(readManifest(is));		
 	}
 	   
@@ -59,8 +63,8 @@ public class ManifestEntryLoader extends AbstractArchiveEntryLoader {
 	private void printAttributes(Attributes attributes ){
 		  if(attributes != null){
 			   Set<Entry<Object, Object>> t=attributes.entrySet();
-			   for (Entry<Object, Object> entry2 : t) {				  
-				   System.out.println("sub-Entry => "+entry2.getKey()+"="+entry2.getValue());
+			   for (Entry<Object, Object> entry2 : t) {		
+				   logger.debug("sub-Entry => {} = {} ", entry2.getKey(), entry2.getValue());
 			   }
 		  }
 	}
@@ -78,8 +82,9 @@ public class ManifestEntryLoader extends AbstractArchiveEntryLoader {
 	      
 	      
 	      if (entries != null){	    	   
-	    	   for (Map.Entry<String, Attributes> entry : entries.entrySet()) {	    		   
-	    		   System.out.println("Entry "+entry.getKey());
+	    	   for (Map.Entry<String, Attributes> entry : entries.entrySet()) {
+	    	   	   logger.debug("Entry {}", entry.getKey()); 	   
+	    		  
 	    		   Attributes attributes = entry.getValue();	    		   
 	    		   printAttributes(attributes);
 			 }

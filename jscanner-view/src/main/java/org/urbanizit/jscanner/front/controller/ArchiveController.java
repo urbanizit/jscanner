@@ -58,7 +58,7 @@ public class ArchiveController {
     	Collection<Archive> dependArchives = null;
     	Collection<Archive> dependOnArchives = null;
     	
-    	System.out.println(new Date() +" Begin : ArchiveController ");
+    	log.debug(" Begin : ArchiveController ");
 		try {
 			archiveDtoI = catalogServiceItfI.getArchive(archiveId, true, Arrays.asList(ArchiveView.FIRST_LEVEL_CLASS));
 			if(archiveDtoI != null){

@@ -25,7 +25,7 @@ import org.urbanizit.jscanner.transfert.Location;
 
 public abstract class AbstractArchiveScanner<T extends Archive>
 {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractArchiveScanner.class);
+	private final Logger logger = LoggerFactory.getLogger(AbstractArchiveScanner.class);
 
 	protected abstract Collection<org.urbanizit.jscanner.analyser.loader.AbstractArchiveEntryLoader> getArchiveEntryLoaders();
 	
@@ -86,18 +86,18 @@ public abstract class AbstractArchiveScanner<T extends Archive>
         	 try{
         		 loadEntry(zipFile, (ZipEntry)zipEntryEnum.nextElement(), archive);
         	 }catch (Exception e) {
-        		 LOGGER.error("Error loading entry",e);
+        		 logger.error("Error loading entry",e);
 			}
          }  
       }catch (Exception e) {
-    	  LOGGER.error("Error scan file {}", file != null ? file.getName() : null, e);
+    	  logger.error("Error scan file {}", file != null ? file.getName() : null, e);
       }finally{
     	 FileUtils.closeQuietly(zipFile);
       }   
       
      Long traitement =  new Date().getTime() - time;
      
-     System.out.println(archive.getName() +"="+ traitement);
+     logger.debug("{} = {}", archive.getName(), traitement);
       return archive;
    }
 

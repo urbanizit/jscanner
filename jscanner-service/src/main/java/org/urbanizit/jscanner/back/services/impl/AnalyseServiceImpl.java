@@ -103,7 +103,7 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 		}
 		Set<ArchiveBo> res = new HashSet<ArchiveBo>();
 		
-		System.out.println(new Date() + " findDependArchives [step1]");
+		logger.debug("findDependArchives [step1]");
 		List<Long> extendedList = extendsArchiveList(Arrays.asList(archiveId), true);
 		List<ArchiveDependency> archivesDependencies = archiveDao.findDependArchives(extendedList, archiveIdsWhiteList);
 		
@@ -113,7 +113,7 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 				archivesIds.add(archiveDependency.getProviderId());
 			}
 		}	
-		System.out.println(new Date() + " findDependArchives [step2]");
+		logger.debug("findDependArchives [step2]");
 		
 		List<List<Long>> splitedArchiveIdsList = CollectionsUtils.splitList(archivesIds, 500);
 		
@@ -122,7 +122,7 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 			archiveCriteria.setArchiveIds(subList);
 			res.addAll(archiveDao.findByCriteria(archiveCriteria));
 		}	
-		System.out.println(new Date() + " findDependArchives [step3]");
+		logger.debug("findDependArchives [step3]");
 		return Bo2DtoIConverter.convertArchives(res);
 	}
 	
@@ -136,11 +136,11 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 		}
 		Set<ArchiveBo> res = new HashSet<ArchiveBo>();
 		
-		System.out.println(new Date() + " findDependOnArchives [step1]");	
+		logger.debug("findDependOnArchives [step1]");	
 		List<Long> extendedList = extendsArchiveList(Arrays.asList(archiveId), true);
 		List<ArchiveDependency> archivesDependencies = archiveDao.findDependOnArchives(extendedList, archiveIdsWhiteList);
 		
-		System.out.println(new Date() + " findDependOnArchives [step2]");	
+		logger.debug("findDependOnArchives [step2]");	
 		Set<Long> archivesIds = new HashSet<Long>();
 		if(archivesDependencies != null){
 			for (ArchiveDependency archiveDependency : archivesDependencies) {
@@ -154,7 +154,7 @@ public class AnalyseServiceImpl implements AnalyseServiceItf{
 			archiveCriteria.setArchiveIds(subList);
 			res.addAll(archiveDao.findByCriteria(archiveCriteria));
 		}
-		System.out.println(new Date() + " findDependOnArchives [step3]");	
+		logger.debug("findDependOnArchives [step3]");	
 		return Bo2DtoIConverter.convertArchives(res);
 	}
 	

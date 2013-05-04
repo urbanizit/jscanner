@@ -161,7 +161,7 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public Long saveArchiveNonRecursif(Archive archiveDtoI )throws Exception{
 		
-		System.out.println("saveArchiveNonRecursif : "+ archiveDtoI.getName());
+		logger.debug("saveArchiveNonRecursif : {}", archiveDtoI.getName());
 		
 		//Is archive already exist ?
 		ArchiveBoCriteria archiveCriteria = new ArchiveBoCriteria();
@@ -176,17 +176,17 @@ public class ArchiveServiceImpl implements ArchiveServiceItf{
 		
 		Map<String, PackageNameBo> packageNameCache = new ArchivePackageResolver(packageNameDao, false).resolve(archiveDtoI);		
 		progession = System.currentTimeMillis();		
-		System.out.println("time calculating packages : "+ (progession - time) /1000+" "+packageNameCache.size() +" elements");
+		logger.debug("time calculating packages : Resolving {} elements in {}s", packageNameCache.size(), ((progession - time) /1000));
 		
 		time = System.currentTimeMillis();
 		Map<String, ClassNameBo> classNameCache = new ArchiveClassNameResolver(classNameDao, false).resolve(archiveDtoI);
 		progession = System.currentTimeMillis();		
-		System.out.println("time calculating classNames : "+ (progession - time) /1000+" "+classNameCache.size() +" elements");
+		logger.debug("time calculating classNames : Resolving {} elements in {}s", classNameCache.size(),  (progession - time) /1000);
 		
 		time = System.currentTimeMillis();
 		Map<MethodSignatureIdentifier, MethodSignatureBo> methodSignatureCache = new ArchiveMethodSignatureResolver(methodSignatureDao, classNameDao, classNameCache, false).resolve(archiveDtoI);
 		progession = System.currentTimeMillis();		
-		System.out.println("time calculating methodSignature : "+ (progession - time) /1000+" "+methodSignatureCache.size() +" elements");
+		logger.debug("time calculating methodSignature : Resolving {} elements in {}s", methodSignatureCache.size(), (progession - time) /1000);
 			
 		ArchiveBo archive = DtoI2BoConverter.convert(archiveDtoI);
 		archive.setRegistrationDate(new Date());

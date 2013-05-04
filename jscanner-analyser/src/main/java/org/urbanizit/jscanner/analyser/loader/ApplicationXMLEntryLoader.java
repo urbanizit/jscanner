@@ -3,6 +3,8 @@ package org.urbanizit.jscanner.analyser.loader;
 import java.io.InputStream;
 import java.util.zip.ZipEntry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.urbanizit.jscanner.transfert.Archive;
 
 
@@ -10,6 +12,8 @@ import org.urbanizit.jscanner.transfert.Archive;
  * @author ldassonville
  */
 public class ApplicationXMLEntryLoader extends AbstractArchiveEntryLoader {
+	
+	private Logger logger = LoggerFactory.getLogger(ApplicationXMLEntryLoader.class);
 	
 	private static final String APPLICATION_XML_DIRECTORY = "META-INF";
 	
@@ -35,7 +39,7 @@ public class ApplicationXMLEntryLoader extends AbstractArchiveEntryLoader {
 	@Override
 	protected void processLoading(final String fileName, final InputStream is, final Archive archive)throws Exception {
 		//TODO processLoading Implementation
-		System.out.println("Reading : "+fileName);
+		logger.debug("Reading : {}", fileName);
 	}
 	   
 

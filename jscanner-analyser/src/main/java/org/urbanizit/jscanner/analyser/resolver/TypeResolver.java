@@ -7,10 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class TypeResolver {
 
+	private static Logger logger = LoggerFactory.getLogger(TypeResolver.class);
+	
 /*
 	TypeSignature: Z | C | B | S | I | F | J | D | FieldTypeSignature
 	FieldTypeSignature: ClassTypeSignature | [ TypeSignature | TypeVar
@@ -106,7 +110,7 @@ public class TypeResolver {
 				resolvedType += "[]";
 			}
 		}else{
-			System.out.println("aie");
+			logger.debug("Unable to get type");
 		}
 		return resolvedType;
 	}

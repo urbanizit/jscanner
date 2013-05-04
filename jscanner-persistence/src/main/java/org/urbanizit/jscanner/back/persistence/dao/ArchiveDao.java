@@ -12,6 +12,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.urbanizit.jscanner.back.persistence.bo.ArchiveBo;
 import org.urbanizit.jscanner.back.persistence.criteria.ArchiveBoCriteria;
 import org.urbanizit.jscanner.back.persistence.itf.ArchiveDaoItf;
@@ -21,6 +22,7 @@ import org.urbanizit.jscanner.back.transfert.dto.ArchiveDependency;
 @Named
 public class ArchiveDao extends AbstractDao<ArchiveBo, Long>  implements ArchiveDaoItf{
 
+	private Logger logger = LoggerFactory.getLogger(ArchiveDao.class);
 
 	/**
 	 * @see org.urbanizit.jscanner.back.persistence.itf.ArchiveDaoItf#findByCriteria(org.urbanizit.jscanner.back.persistence.criteria.ArchiveBoCriteria)
@@ -143,7 +145,7 @@ public class ArchiveDao extends AbstractDao<ArchiveBo, Long>  implements Archive
 	@SuppressWarnings("unchecked")
 	public List<ArchiveDependency> findDependOnArchives( final Collection<Long> archiveIds ,  final Collection<Long> archiveWhiteListIds ){
 			
-		System.out.println(new Date() +"Begin : findDependOnArchives ");
+		logger.debug("Begin : findDependOnArchives ");
 				
 		
 //		String ejbSqlquery = 
@@ -198,7 +200,7 @@ public class ArchiveDao extends AbstractDao<ArchiveBo, Long>  implements Archive
 			}
 		}
 		
-		System.out.println(new Date() +"End : findDependOnArchives ");
+		logger.debug("End : findDependOnArchives ");
 		return res;
 		
 	}
