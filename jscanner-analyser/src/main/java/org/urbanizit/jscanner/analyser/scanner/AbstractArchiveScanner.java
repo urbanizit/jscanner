@@ -16,6 +16,7 @@ import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.urbanizit.jscanner.analyser.loader.AbstractArchiveEntryLoader;
+import org.urbanizit.jscanner.core.utils.CheckSumType;
 import org.urbanizit.jscanner.core.utils.CheckSumUtils;
 import org.urbanizit.jscanner.core.utils.FileUtils;
 import org.urbanizit.jscanner.transfert.Archive;
@@ -77,7 +78,7 @@ public abstract class AbstractArchiveScanner<T extends Archive>
          Location location = new Location();//(filename, null);       
          
          archive = getArchiveImpl(name, location);
-         archive.setChecksum(CheckSumUtils.getSha256(new FileInputStream(file)));
+         archive.setChecksum(CheckSumUtils.getCheckSum(file, CheckSumType.SHA256));
          zipFile = new ZipFile(file);
          Enumeration<? extends ZipEntry> zipEntryEnum = zipFile.entries();
    

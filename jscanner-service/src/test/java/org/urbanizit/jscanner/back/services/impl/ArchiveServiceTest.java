@@ -1,7 +1,6 @@
 package org.urbanizit.jscanner.back.services.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +20,7 @@ import org.urbanizit.jscanner.ArchiveTypes;
 import org.urbanizit.jscanner.analyser.scanner.AbstractArchiveScanner;
 import org.urbanizit.jscanner.analyser.scanner.DirectoryScanner;
 import org.urbanizit.jscanner.analyser.scanner.factory.ScannerFactory;
+import org.urbanizit.jscanner.core.utils.CheckSumType;
 import org.urbanizit.jscanner.core.utils.CheckSumUtils;
 import org.urbanizit.jscanner.transfert.Archive;
 import org.urbanizit.jscanner.transfert.ArchiveCriteria;
@@ -30,7 +30,7 @@ import org.urbanizit.jscanner.transfert.itf.ArchiveServiceItf;
 @ContextConfiguration(locations = {"classpath:spring/jscannerContext.xml"})
 public class ArchiveServiceTest {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ArchiveServiceTest.class);
+	private final Logger logger = LoggerFactory.getLogger(ArchiveServiceTest.class);
 	
 	@Inject private ArchiveServiceItf archiveServiceItfI;
     
@@ -39,7 +39,8 @@ public class ArchiveServiceTest {
     	
 
     	//	List<File> files = DirectoryScanner.scan(new File("C:\\Programmation\\jcanner-tests\\full-libs\\"));
-    	List<File> files = new DirectoryScanner().scan(new File("K:\\Programmation\\appdata\\jscanner_data\\"));
+   // 	List<File> files = new DirectoryScanner().scan(new File("E:\\Programmation\\appdata\\jscanner_data\\Miroir_Archives"));
+    	List<File> files = new DirectoryScanner().scan(new File("E:\\Programmation\\appdata\\jscanner_data\\debug"));
     	
     	
     	//List<File> files = new ArrayList<File>();
@@ -56,7 +57,7 @@ public class ArchiveServiceTest {
 			executorService.invokeAll(registerTasks);		    	
 			executorService.shutdown();
     	} catch (InterruptedException e) {
-    		LOGGER.error("Error saveArchiveTest",e);
+    		logger.error("Error saveArchiveTest",e);
 		}    
     }     
     
@@ -74,9 +75,9 @@ public class ArchiveServiceTest {
 		public Long call() throws Exception {
 			
 			try{
-				System.out.println("start task "+file.getName());
+				logger.info("start task : {}", file.getName());
 				
-				String checksum = CheckSumUtils.getSha256(new FileInputStream(file));
+				String checksum = CheckSumUtils.getCheckSum(file, CheckSumType.SHA256);
 				ArchiveCriteria criteria = new ArchiveCriteria();
 				criteria.setChecksum(checksum);				
 				List<Archive> archiveDtoIs = archiveServiceItfI.findArchiveByCriteria(criteria);
@@ -90,7 +91,7 @@ public class ArchiveServiceTest {
 					return archiveDtoIs.get(0).getId();
 				}
 			}catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Error during  archive registering",e);
 				throw e;
 			}
 		}
