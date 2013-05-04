@@ -50,7 +50,7 @@
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/jscanner-newModel" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/jscanner" />
 		<property name="username" value="jscanner" />
 		<property name="password" value="jscanner" />
 	</bean>
