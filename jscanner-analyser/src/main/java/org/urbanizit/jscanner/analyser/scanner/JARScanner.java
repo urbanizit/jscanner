@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.urbanizit.jscanner.analyser.loader.AbstractArchiveEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.ClassEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.ManifestEntryLoader;
+import org.urbanizit.jscanner.analyser.loader.PomEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.SignEntryLoader;
 import org.urbanizit.jscanner.transfert.JarArchive;
 
@@ -24,6 +25,7 @@ public class JARScanner extends AbstractArchiveScanner<JarArchive>{
 	    //archiveEntryLoaders.add(new ArchiveEntryLoader());
 	    archiveEntryLoaders.add(new ManifestEntryLoader());
 		archiveEntryLoaders.add(new SignEntryLoader());
+		archiveEntryLoaders.add(new PomEntryLoader());
 	}
 
 	@Override

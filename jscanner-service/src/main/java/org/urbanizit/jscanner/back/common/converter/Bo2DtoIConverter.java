@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.urbanizit.jscanner.back.persistence.bo.ArchiveBo;
+import org.urbanizit.jscanner.back.persistence.bo.BuilderDataBo;
 import org.urbanizit.jscanner.back.persistence.bo.ClassFileBo;
 import org.urbanizit.jscanner.back.persistence.bo.EarArchiveBo;
 import org.urbanizit.jscanner.back.persistence.bo.JarArchiveBo;
@@ -15,6 +16,7 @@ import org.urbanizit.jscanner.back.persistence.bo.WarArchiveBo;
 import org.urbanizit.jscanner.back.persistence.criteria.ArchiveBoCriteria;
 import org.urbanizit.jscanner.transfert.Archive;
 import org.urbanizit.jscanner.transfert.ArchiveCriteria;
+import org.urbanizit.jscanner.transfert.BuilderData;
 import org.urbanizit.jscanner.transfert.ClassFile;
 import org.urbanizit.jscanner.transfert.EarArchive;
 import org.urbanizit.jscanner.transfert.JarArchive;
@@ -51,7 +53,7 @@ public abstract class Bo2DtoIConverter {
 	}
 	
 	
-	public static Archive convert(ArchiveBo  in, boolean cascade){
+	public static Archive convert(ArchiveBo in, boolean cascade){
 		if(in == null) return null;	
 		
 		Archive out = null;		
@@ -71,6 +73,7 @@ public abstract class Bo2DtoIConverter {
 		out.setOwnerGroup(in.getOwnerGroup());
 		out.setCompagnyFile(in.getCompagnyFile());
 		out.setWsArtifact(in.isWsArtifact());
+		out.setBuilderData(convert(in.getBuilderData()));
 		
 		if(cascade){
 			if(in instanceof NestableArchiveBo){
@@ -103,6 +106,18 @@ public abstract class Bo2DtoIConverter {
 		return out;
 	}	
 	
+	
+	public static BuilderData convert(BuilderDataBo in){
+		if(in == null) return null;
+		BuilderData out = new BuilderData();
+		out.setId(in.getId());
+		out.setBuilderType(in.getBuilderType());
+		out.setVersion(in.getVersion());
+		out.setGroupId(in.getGroupId());
+		out.setArtifactId(in.getArtifactId());
+		
+		return out;
+	}
 	
 	public static Method convert(MethodBo in){
 		if(in == null) return null;

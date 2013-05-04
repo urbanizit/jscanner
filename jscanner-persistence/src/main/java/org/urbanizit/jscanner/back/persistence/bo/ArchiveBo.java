@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -48,6 +47,10 @@ public abstract class ArchiveBo implements EntityItf<Long> {
 	@OneToOne(mappedBy="archive", cascade={CascadeType.ALL})
 	private ManifestBo manifest;
 
+	/** The archive maven data **/
+	@OneToOne(mappedBy="archive", cascade={CascadeType.ALL})
+	private BuilderDataBo builderData;
+	
 	/** Signing information */
 	@OneToMany(mappedBy="archive", cascade={CascadeType.ALL})
 	private Set<SignEntryBo> signEntries;
@@ -126,6 +129,17 @@ public abstract class ArchiveBo implements EntityItf<Long> {
 
 	public void setOwnerGroup(String ownerGroup) {
 		this.ownerGroup = ownerGroup;
+	}
+	
+	public BuilderDataBo getBuilderData() {
+		return builderData;
+	}
+
+	public void setBuilderData(BuilderDataBo builderData) {
+		if(builderData != null){
+			builderData.setArchive(this);
+		}
+		this.builderData = builderData;
 	}
 
 	public ManifestBo getManifest() {

@@ -39,7 +39,10 @@ public class ArchiveServiceTest {
     	
 
     	//	List<File> files = DirectoryScanner.scan(new File("C:\\Programmation\\jcanner-tests\\full-libs\\"));
-   // 	List<File> files = new DirectoryScanner().scan(new File("E:\\Programmation\\appdata\\jscanner_data\\Miroir_Archives"));
+    	//List<File> files = new DirectoryScanner().scan(new File("E:\\Programmation\\appdata\\jscanner_data\\ArchivesVH2"));
+    	
+    	
+    	
     	List<File> files = new DirectoryScanner().scan(new File("E:\\Programmation\\appdata\\jscanner_data\\debug"));
     	
     	

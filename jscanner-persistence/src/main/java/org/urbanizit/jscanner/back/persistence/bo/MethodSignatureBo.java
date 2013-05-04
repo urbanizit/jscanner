@@ -30,7 +30,7 @@ public class MethodSignatureBo implements EntityItf<Long>  {
 	private Long id;
 	
 	/** Method signature **/
-	@Column(name = "METHOD_SIGNATURE", nullable = false, unique=false,  length= 2048)	
+	@Column(name = "METHOD_SIGNATURE", nullable = false, unique=false,  length= 8000)	
 	private String methodSignature;
 	
 	/** Method human readable signature **/

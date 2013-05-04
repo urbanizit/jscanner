@@ -18,7 +18,8 @@ public class Archive implements Serializable {
 	protected String ownerGroup;
 	protected Boolean compagnyFile;
 	protected Date registrationDate;
-	protected Location locationDtoI;	
+	protected BuilderData builderData;
+	protected Location location;	
 	protected List<String> signs;
 	protected List<ClassFile> classFiles;
 	protected boolean wsArtifact;	
@@ -97,6 +98,14 @@ public class Archive implements Serializable {
 
 	public void setWsArtifact(boolean wsArtifact) {
 		this.wsArtifact = wsArtifact;
+	}
+
+	public BuilderData getBuilderData() {
+		return builderData;
+	}
+
+	public void setBuilderData(BuilderData builderData) {
+		this.builderData = builderData;
 	}
 
 	@Override

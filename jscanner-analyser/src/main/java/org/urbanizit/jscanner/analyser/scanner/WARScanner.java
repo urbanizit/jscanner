@@ -7,6 +7,7 @@ import org.urbanizit.jscanner.analyser.loader.AbstractArchiveEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.ArchiveEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.ClassEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.ManifestEntryLoader;
+import org.urbanizit.jscanner.analyser.loader.PomEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.SignEntryLoader;
 import org.urbanizit.jscanner.transfert.WarArchive;
 
@@ -26,6 +27,7 @@ public class WARScanner extends AbstractArchiveScanner<WarArchive>{
 	    archiveEntryLoaders.add(new ArchiveEntryLoader());
 	    archiveEntryLoaders.add(new ManifestEntryLoader());
 		archiveEntryLoaders.add(new SignEntryLoader());
+		archiveEntryLoaders.add(new PomEntryLoader());
 	}
 
 	@Override

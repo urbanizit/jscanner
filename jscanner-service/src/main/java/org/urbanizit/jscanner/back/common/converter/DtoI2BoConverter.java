@@ -1,6 +1,7 @@
 package org.urbanizit.jscanner.back.common.converter;
 
 import org.urbanizit.jscanner.back.persistence.bo.ArchiveBo;
+import org.urbanizit.jscanner.back.persistence.bo.BuilderDataBo;
 import org.urbanizit.jscanner.back.persistence.bo.ClassFileBo;
 import org.urbanizit.jscanner.back.persistence.bo.ClassNameBo;
 import org.urbanizit.jscanner.back.persistence.bo.EarArchiveBo;
@@ -13,6 +14,7 @@ import org.urbanizit.jscanner.back.persistence.bo.WarArchiveBo;
 import org.urbanizit.jscanner.back.persistence.criteria.ArchiveBoCriteria;
 import org.urbanizit.jscanner.transfert.Archive;
 import org.urbanizit.jscanner.transfert.ArchiveCriteria;
+import org.urbanizit.jscanner.transfert.BuilderData;
 import org.urbanizit.jscanner.transfert.ClassFile;
 import org.urbanizit.jscanner.transfert.EarArchive;
 import org.urbanizit.jscanner.transfert.JarArchive;
@@ -43,6 +45,7 @@ public abstract class DtoI2BoConverter{
 		out.setOwnerGroup(in.getOwnerGroup());
 		out.setCompagnyFile(in.getCompagnyFile());
 		out.setWsArtifact(in.isWsArtifact());
+		out.setBuilderData(convert(in.getBuilderData()));
 		return out;
 	}	
 		
@@ -84,6 +87,18 @@ public abstract class DtoI2BoConverter{
 		return out;
 	}	
 	
+	
+	public static BuilderDataBo  convert(BuilderData in){
+		if(in == null) return null;
+		BuilderDataBo out = new BuilderDataBo();
+		out.setId(in.getId());
+		out.setBuilderType(in.getBuilderType());
+		out.setVersion(in.getVersion());
+		out.setGroupId(in.getGroupId());
+		out.setArtifactId(in.getArtifactId());
+		
+		return out;
+	}
 	
 	public static ArchiveBoCriteria convert(ArchiveCriteria in){
 		if(in == null) return null;

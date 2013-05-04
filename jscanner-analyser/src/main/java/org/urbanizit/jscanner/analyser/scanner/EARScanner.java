@@ -7,6 +7,7 @@ import org.urbanizit.jscanner.analyser.loader.AbstractArchiveEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.ApplicationXMLEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.ArchiveEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.ManifestEntryLoader;
+import org.urbanizit.jscanner.analyser.loader.PomEntryLoader;
 import org.urbanizit.jscanner.analyser.loader.SignEntryLoader;
 import org.urbanizit.jscanner.transfert.EarArchive;
 
@@ -25,6 +26,7 @@ public class EARScanner extends AbstractArchiveScanner<EarArchive>{
 	    archiveEntryLoaders.add(new ManifestEntryLoader());
 	    archiveEntryLoaders.add(new ApplicationXMLEntryLoader());
 		archiveEntryLoaders.add(new SignEntryLoader());
+		archiveEntryLoaders.add(new PomEntryLoader());
 	}
 
 	@Override

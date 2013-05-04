@@ -1,7 +1,6 @@
 package org.urbanizit.jscanner.analyser.scanner;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Date;
