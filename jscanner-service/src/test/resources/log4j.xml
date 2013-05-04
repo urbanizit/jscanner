@@ -13,7 +13,11 @@
         <level value="info"/>
         <appender-ref ref="console" />
     </logger>
-        
+  
+  	<logger name="org.urbanizit.jscanner.analyser">
+        <level value="debug"/>
+        <appender-ref ref="console" />
+    </logger>       
    	<root>
      	<level value="warn"/>
       	<appender-ref ref="console"/>
