@@ -17,8 +17,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Entity
 @Table(	name = "METHOD_SIGNATURE")
 @NamedQueries(value={
-		@NamedQuery(name="FIND_METHOD_SIGNATURE", query="select ms from MethodSignatureBo ms where hashCode = :hashCode and methodSignature = :methodSignature"),
-		@NamedQuery(name="FIND_METHOD_SIGNATURE_IN", query="select ms from MethodSignatureBo ms where  qualifiedReadableSignature in (:methodSignatures)")
+		@NamedQuery(name="FIND_METHOD_SIGNATURE", query="select ms from MethodSignatureBo ms where ms.hashCode = :hashCode and ms.methodSignature = :methodSignature"),
+		@NamedQuery(name="FIND_METHOD_SIGNATURE_IN", query="select ms from MethodSignatureBo ms where  ms.qualifiedReadableSignature in (:methodSignatures)")
 })
 public class MethodSignatureBo implements EntityItf<Long>  {
 

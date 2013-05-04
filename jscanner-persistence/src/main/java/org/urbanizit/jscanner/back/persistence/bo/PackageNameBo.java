@@ -15,8 +15,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Entity
 @Table(	name = "PACKAGE_NAME")
 @NamedQueries(value={
-		@NamedQuery(name="FIND_PACKAGE_NAME", query="select p from PackageNameBo p where packageName=:packageName"),
-		@NamedQuery(name="FIND_PACKAGE_NAME_IN", query="select p from PackageNameBo p where packageName in (:packageNames)")
+		@NamedQuery(name="FIND_PACKAGE_NAME", query="select p from PackageNameBo p where p.packageName=:packageName"),
+		@NamedQuery(name="FIND_PACKAGE_NAME_IN", query="select p from PackageNameBo p where p.packageName in (:packageNames)")
 }) 
 public class PackageNameBo implements EntityItf<Long>  {
 

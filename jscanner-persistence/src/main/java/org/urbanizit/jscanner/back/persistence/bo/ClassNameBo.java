@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -22,8 +21,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Entity
 @Table(	name = "CLASS_NAME")
 @NamedQueries(value={
-		@NamedQuery(name="FIND_CLASS_NAME", query="select c from ClassNameBo c where  hashCode = :hashCode and className = :className"),
-		@NamedQuery(name="FIND_CLASS_NAME_IN", query="select c from ClassNameBo c where  className in (:classNames)")
+		@NamedQuery(name="FIND_CLASS_NAME", query="select c from ClassNameBo c where  c.hashCode = :hashCode and c.className = :className"),
+		@NamedQuery(name="FIND_CLASS_NAME_IN", query="select c from ClassNameBo c where  c.className in (:classNames)")
 })
 public class ClassNameBo implements EntityItf<Long>  {
 
