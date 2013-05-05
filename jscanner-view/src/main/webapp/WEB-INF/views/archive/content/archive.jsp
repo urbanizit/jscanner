@@ -13,6 +13,11 @@
 			fieldset label{
 				display:inline;				
 			}
+			
+			fieldset .icon-plus {
+				margin-right: 4px;
+				margin-top: 4px;
+			}
 		</style>
 	</head>
 
@@ -55,7 +60,7 @@
 		<fieldset id="nestedArchives-accordion">
 			<div>
 				<a data-toggle="collapse" data-parent="#nestedArchives-accordion" href="#nestedArchives-collapse"> 
-					<legend id="embbededArchives">Archives embarquées</legend>
+					<legend id="embbededArchives"><i class="icon-plus"></i>Archives embarquées</legend>
 				</a>
 				<div id="nestedArchives-collapse" class="accordion-body collapse" style="height: 0px;">
 					<c:choose>
@@ -78,7 +83,7 @@
 		<fieldset id="nestedClasses-accordion">
 			<div>
 				<a data-toggle="collapse" data-parent="#nestedClasses-accordion" href="#nestedClasses-collapse"> 
-					<legend id="embbededArchives">Classes contenues</legend>
+					<legend id="embbededArchives"><i class="icon-plus"></i>Classes contenues</legend>
 				</a>
 				<div id="nestedClasses-collapse" class="accordion-body collapse" style="height: 0px;">
 					<c:set var="classFiles" value="${archive.classFiles}"/>
@@ -101,10 +106,13 @@
 		</fieldset>
 
 
+
+
+
 		<fieldset id="dependArchives-accordion">
 			<div>
-				<a data-toggle="collapse" data-parent="#dependArchives-accordion" href="#dependArchives-collapse"> 
-					<legend id="embbededArchives">Archives requises</legend>
+				<a  data-toggle="collapse" data-parent="#dependArchives-accordion" href="#dependArchives-collapse"> 
+				 	<legend id="embbededArchives"><i class="icon-plus"></i>Archives requises</legend>
 				</a>
 				<div id="dependArchives-collapse" class="accordion-body collapse" style="height: 0px;">
 					<c:choose>
@@ -133,7 +141,7 @@
 		<fieldset id="dependOnArchives-accordion">
 			<div>
 				<a data-toggle="collapse" data-parent="#dependArchives-accordion" href="#dependOnArchives-collapse"> 
-					<legend id="dependOnArchives">Archives utilisatrices</legend>
+					<legend id="dependOnArchives"><i class="icon-plus"></i>Archives utilisatrices</legend>
 				</a>
 				<div id="dependOnArchives-collapse" class="accordion-body collapse" style="height: 0px;">
 					<c:choose>
