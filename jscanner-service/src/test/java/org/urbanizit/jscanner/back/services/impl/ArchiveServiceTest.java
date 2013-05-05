@@ -43,7 +43,7 @@ public class ArchiveServiceTest {
     	
     	
     	
-    	List<File> files = new DirectoryScanner().scan(new File("E:\\Programmation\\appdata\\jscanner_data\\debug"));
+    	List<File> files = new DirectoryScanner().scan(new File("E:\\Programmation\\appdata\\jscanner_data\\"));
     	
     	
     	//List<File> files = new ArrayList<File>();

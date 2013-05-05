@@ -2,6 +2,7 @@ package org.urbanizit.jscanner.back.persistence.bo;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,10 +40,7 @@ public class ClassNameBo implements EntityItf<Long>  {
 	@Column(name = "HASHCODE", nullable = false, unique=false)	
 	private Integer hashCode ;
 	
-	@ManyToMany(cascade={})
-	@JoinTable(name="CLASS_FILE_CLASS_NAME",
-        joinColumns = @JoinColumn(name="CLASSDEPENDENCIES_CLASS_NAME_ID", referencedColumnName="CLASS_NAME_ID"),
-        inverseJoinColumns =  @JoinColumn(name="CLASS_FILE_CLASS_FILE_ID", referencedColumnName="CLASS_FILE_ID")) 
+	@ManyToMany(mappedBy="classDependencies")
 	private Set<ClassFileBo> classFileDependencies;
 	
 	@OneToMany(cascade={}, mappedBy="className")

@@ -65,8 +65,11 @@ public class ClassFileBo implements EntityItf<Long>  {
 	
 	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<PackageNameBo> packageDependencies;
-	
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="classFileDependencies")
+		
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name="CLASS_FILE_CLASS_NAME",
+			inverseJoinColumns  		= @JoinColumn(name="CLASS_NAME_ID", referencedColumnName="CLASS_NAME_ID"),
+			joinColumns = @JoinColumn(name="CLASS_FILE_ID", referencedColumnName="CLASS_FILE_ID")) 
 	private Set<ClassNameBo> classDependencies;
 	
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="classFile")
