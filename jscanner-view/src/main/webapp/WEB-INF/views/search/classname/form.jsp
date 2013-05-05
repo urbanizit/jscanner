@@ -12,7 +12,7 @@
 		<form action="results" method="get">
 			<input type="text" name="className" />
 		
-			<input class="btn primary" type="submit" value="Rechercher">
+			<input class="btn btn-primary" type="submit" value="Rechercher">
 			<button class="btn" type="reset">Annuler</button>
 		</form>
 

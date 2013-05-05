@@ -7,12 +7,11 @@
   </head>
   <body>
 		<h1>Recherche par nom de methode (Not yet implemented)</h1>
-		
-		
+	          
 		<form action="results" method="get">
 			<input type="text" name="methodName" />
 		
-			<input class="btn primary" type="submit" value="Rechercher">
+			<input class="btn btn-primary" type="submit" value="Rechercher">
 			<button class="btn" type="reset">Annuler</button>
 		</form>
 
