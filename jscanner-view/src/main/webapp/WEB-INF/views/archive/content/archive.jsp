@@ -14,7 +14,7 @@
 				display:inline;				
 			}
 			
-			fieldset .icon-plus {
+			fieldset .icon-plus, fieldset .icon-minus {
 				margin-right: 4px;
 				margin-top: 4px;
 			}
@@ -60,9 +60,9 @@
 		<fieldset id="nestedArchives-accordion">
 			<div>
 				<a data-toggle="collapse" data-parent="#nestedArchives-accordion" href="#nestedArchives-collapse"> 
-					<legend id="embbededArchives"><i class="icon-plus"></i>Archives embarquées</legend>
+					<legend id="embbededArchives"><i class="icon-minus"></i>Archives embarquées</legend>
 				</a>
-				<div id="nestedArchives-collapse" class="accordion-body collapse" style="height: 0px;">
+				<div id="nestedArchives-collapse" class="accordion-body in collapse" style="height: auto;">
 					<c:choose>
 						<c:when test="${not empty nestedArchives}">
 							<ul>
@@ -83,9 +83,9 @@
 		<fieldset id="nestedClasses-accordion">
 			<div>
 				<a data-toggle="collapse" data-parent="#nestedClasses-accordion" href="#nestedClasses-collapse"> 
-					<legend id="embbededArchives"><i class="icon-plus"></i>Classes contenues</legend>
+					<legend id="embbededArchives"><i class="icon-minus"></i>Classes contenues</legend>
 				</a>
-				<div id="nestedClasses-collapse" class="accordion-body collapse" style="height: 0px;">
+				<div id="nestedClasses-collapse" class="accordion-body in collapse" style="height: auto;">
 					<c:set var="classFiles" value="${archive.classFiles}"/>
  
 					<c:choose>
