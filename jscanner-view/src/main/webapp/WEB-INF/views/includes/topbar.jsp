@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="#">JScanner</a>
+      <a class="brand" href="<c:url value="/" />">JScanner</a>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
           Logged in as <a href="#" class="navbar-link">Username</a>
