@@ -45,8 +45,13 @@ public abstract class Bo2DtoIConverter {
 		out.setArchiveNames(in.getArchiveNames());
 		out.setCanonicalNamesDependencies(in.getCanonicalNamesDependencies());
 		out.setClassNames(in.getClassNames());
-		out.setMethodCalled(in.getMethodCalled());
-		out.setMethodProvided(in.getMethodProvided());
+		
+		out.setProvidedMethodName(in.getProvidedMethodName());
+		out.setConsumedMethodName(in.getConsumedMethodName());
+		
+		//TODO normalize names
+		out.setMethodCalledIds(in.getCalledMethodIds());
+		out.setMethodProvidedIds(in.getProvidedMethodIds());
 		out.setPackageNames(in.getPackageNames());
 		out.setCompagnyFile(in.getCompagnyFile());
 		return out;

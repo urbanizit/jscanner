@@ -3,7 +3,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>Recherche d'une archive par nom</title>
+    <title>Recherche d'une archive</title>
+    
+    <style type="text/css">
+    	label {
+			display: inline;
+		}
+    </style>
   </head>
   <body>
   		<div class="page-header">
@@ -11,24 +17,23 @@
      	</div>
   
   		<fieldset class="fieldset">
-          <legend>Rechercher d'un archive par nom</legend>
+          <legend>Recherche d'une archive</legend>
           
-          	<form action="." method="get">          	
-				Lancer une recherche
-			
-			<div class="input-append">
-			  <input   name="archiveName" type="text" placeholder="recherche...">
-			  <div class="btn-group">
-			    <button class="btn dropdown-toggle" data-toggle="dropdown">
-			      Par
-			      <span class="caret"></span>
-			    </button>
-			    <ul class="dropdown-menu">
-			      <li><a href="#">Nom</a></li>
-			      <li><a href="#">Methode</a></li>			      
-			    </ul>
-			  </div>
-			</div>
+          
+          	<form action="." method="get">   
+          		   	 
+          		<div>
+          			<label>Rechercher par : </label>
+          			<select name="criteriaType">
+          				<option value="name">Nom d'archive</option>
+          				<option value="providedFunction">Nom de fonction</option>
+          			</select>
+          		</div> 
+          		
+              	<div>
+          			<label>Critère de recherche :  </label>
+          			 <input name="archiveName" type="text" placeholder="recherche...">
+          		</div>       		
 			
 				<input class="btn btn-primary" type="submit" value="Rechercher">
 				<button class="btn" type="reset">Annuler</button>

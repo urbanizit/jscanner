@@ -41,7 +41,7 @@ public class CatalogServiceImpl implements CatalogServiceItf{
 	private final Logger logger = LoggerFactory.getLogger(CatalogServiceImpl.class);
 
 	
-	public Archive getArchive(final Long archiveId, final Boolean deepSearch, final List<ArchiveView> views)	throws Exception {
+	public Archive getArchive(final Long archiveId, final List<ArchiveView> views)	throws Exception {
 
 		List<ArchiveView> workingView = views;
 		
@@ -57,12 +57,12 @@ public class CatalogServiceImpl implements CatalogServiceItf{
 			workingView.remove(ArchiveView.FIRST_LEVEL_CLASS);
 		}
 		
-		if(Boolean.TRUE.equals(deepSearch) && (archive instanceof NestableArchiveBo)){
+		if((archive instanceof NestableArchiveBo) && views != null && views.contains(ArchiveView.EMBBEDED_ARCHIVES)){
 			NestableArchiveBo nestableArchive = (NestableArchiveBo)archive;
 			NestableArchive nestableArchiveDtoI = (NestableArchive)res;
 			List<Archive> subArchives = new ArrayList<Archive>();			
 			for (ArchiveBo subArchive : nestableArchive.getSubArchives()) {
-				subArchives.add(getArchive(subArchive.getId(), deepSearch, workingView));
+				subArchives.add(getArchive(subArchive.getId(), workingView));
 			}
 			nestableArchiveDtoI.setSubArchives(subArchives);
 		}

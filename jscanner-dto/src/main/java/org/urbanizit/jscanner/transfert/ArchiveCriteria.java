@@ -15,8 +15,11 @@ public class ArchiveCriteria implements Serializable{
 	private Collection<String> canonicalNames;
 	private Collection<String> canonicalNamesDependencies;
 	
-	private Collection<Long> methodProvided;
-	private Collection<Long> methodCalled;
+	private String providedMethodName;
+	private String consumedMethodName;
+	
+	private Collection<Long> methodProvidedIds;
+	private Collection<Long> methodCalledIds;
 	private Boolean compagnyFile;
 	private String ownerGroup;
 	
@@ -62,17 +65,17 @@ public class ArchiveCriteria implements Serializable{
 	public void setArchiveNames(Collection<String> archiveNames) {
 		this.archiveNames = archiveNames;
 	}
-	public Collection<Long> getMethodProvided() {
-		return methodProvided;
+	public Collection<Long> getMethodProvidedIds() {
+		return methodProvidedIds;
 	}
-	public void setMethodProvided(Collection<Long> methodProvided) {
-		this.methodProvided = methodProvided;
+	public void setMethodProvidedIds(Collection<Long> methodProvidedIds) {
+		this.methodProvidedIds = methodProvidedIds;
 	}
-	public Collection<Long> getMethodCalled() {
-		return methodCalled;
+	public Collection<Long> getMethodCalledIds() {
+		return methodCalledIds;
 	}
-	public void setMethodCalled(Collection<Long> methodCalled) {
-		this.methodCalled = methodCalled;
+	public void setMethodCalledIds(Collection<Long> methodCalledIds) {
+		this.methodCalledIds = methodCalledIds;
 	}
 	public Boolean getCompagnyFile() {
 		return compagnyFile;
@@ -86,4 +89,18 @@ public class ArchiveCriteria implements Serializable{
 	public void setOwnerGroup(String ownerGroup) {
 		this.ownerGroup = ownerGroup;
 	}
+	public String getProvidedMethodName() {
+		return providedMethodName;
+	}
+	public void setProvidedMethodName(String providedMethodName) {
+		this.providedMethodName = providedMethodName;
+	}
+	public String getConsumedMethodName() {
+		return consumedMethodName;
+	}
+	public void setConsumedMethodName(String consumedMethodName) {
+		this.consumedMethodName = consumedMethodName;
+	}
+	
+	
 }

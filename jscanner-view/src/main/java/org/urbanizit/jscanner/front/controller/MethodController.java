@@ -47,7 +47,7 @@ public class MethodController {
 			methodDtoI = catalogServiceItfI.getMethod(methodId);
 			
 			ArchiveCriteria archiveCriteria = new ArchiveCriteria();
-			archiveCriteria.setMethodCalled(Arrays.asList(methodId));
+			archiveCriteria.setMethodCalledIds(Arrays.asList(methodId));
 			
 			dependOnArchives = analyseServiceItfI.findArchiveByCriteria(archiveCriteria, true);
 		} catch (Exception e) {

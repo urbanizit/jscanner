@@ -2,7 +2,6 @@ package org.urbanizit.jscanner.back.persistence.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,18 +31,24 @@ public class ArchiveDao extends AbstractDao<ArchiveBo, Long>  implements Archive
 		
 		String ejbSqlquery = " select distinct(archive) " +
 							 " from ArchiveBo archive " +
+							 " left outer join fetch archive.builderData builderData" +
 							 " left outer join fetch archive.manifest manifest"; 
 							if(	!CollectionUtils.isEmpty(criteria.getClassNames())
 							||	!CollectionUtils.isEmpty(criteria.getPackageNames())
-							||	!CollectionUtils.isEmpty(criteria.getMethodCalled())
-							|| 	!CollectionUtils.isEmpty(criteria.getCanonicalNamesDependencies())){
+							||	!CollectionUtils.isEmpty(criteria.getCalledMethodIds())
+							|| 	!CollectionUtils.isEmpty(criteria.getCanonicalNamesDependencies())
+							||	(criteria.getProvidedMethodName() != null)
+							||  (criteria.getConsumedMethodName() != null)){
 								ejbSqlquery += " join archive.classFiles as classFile ";
 							 }
+							if (criteria.getProvidedMethodName() != null){
+								ejbSqlquery += " join classFile.methods as method "; 
+							}							
 							if(!CollectionUtils.isEmpty(criteria.getCanonicalNamesDependencies())){
 							    ejbSqlquery += " join classFile.classDependencies as classDependency ";
 							}
 												
-							if( !CollectionUtils.isEmpty(criteria.getMethodCalled())){
+							if( !CollectionUtils.isEmpty(criteria.getCalledMethodIds())){
 								 ejbSqlquery += " join classFile.methodCalls as methodCall ";
 								 ejbSqlquery += " , MethodBo mc "; 
 							}							
@@ -63,6 +68,11 @@ public class ArchiveDao extends AbstractDao<ArchiveBo, Long>  implements Archive
 			}
 		}	
 
+		if(criteria.getProvidedMethodName() != null){
+			ejbSqlquery += " and upper(method.methodName) like :providedMethodName ";
+			params.put("providedMethodName", criteria.getProvidedMethodName().replaceAll("\\*", "%").toUpperCase());	
+		}
+		
 		if(criteria.getCompagnyFile() != null){
 			ejbSqlquery += " and archive.compagnyFile = :compagnyFile ";
 			params.put("compagnyFile", criteria.getCompagnyFile());	
@@ -88,10 +98,10 @@ public class ArchiveDao extends AbstractDao<ArchiveBo, Long>  implements Archive
 			params.put("packageNames", criteria.getPackageNames());
 		}
 		
-		if( !CollectionUtils.isEmpty(criteria.getMethodCalled())){
-			ejbSqlquery += " and methodCall.methodReference.signature.id =  mc.signature.id  ";
+		if( !CollectionUtils.isEmpty(criteria.getCalledMethodIds())){
+			ejbSqlquery += " and methodCall.id =  mc.id  ";
 			ejbSqlquery += " and mc.id in (:methodCallIds ) ";
-			params.put("methodCallIds", criteria.getMethodCalled());
+			params.put("methodCallIds", criteria.getCalledMethodIds());
 		}
 		
 		if(!CollectionUtils.isEmpty(criteria.getCanonicalNamesDependencies())){

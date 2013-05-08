@@ -67,14 +67,22 @@ public class SearchController {
     
     
     @RequestMapping(value = "/search/archivename/",  method = {RequestMethod.GET, RequestMethod.POST}, headers = "Accept=text/html")
-    public String searchByArchiveName(Model model,  @RequestParam(required=false, value = "archiveName") String archiveName) {
+    public String searchByArchiveName(Model model,  @RequestParam(required=false, value = "archiveName") String archiveName, @RequestParam(required=false, value="criteriaType") String criteriaType) {
 
     	log.debug("Searching by archiveName : {}", archiveName);
     	
     	if(archiveName != null){
     		model.addAttribute("searchComplete", true);
     		ArchiveCriteria archiveCriteria = new ArchiveCriteria();
-        	archiveCriteria.setArchiveNames(Arrays.asList(archiveName));
+    		
+    		if("providedFunction".equalsIgnoreCase(criteriaType)){
+    			archiveCriteria.setProvidedMethodName(archiveName);	
+    		}else{
+    			archiveCriteria.setArchiveNames(Arrays.asList(archiveName));
+    		}
+    
+   
+        	
         	List<Archive> archives = null;
     		try {
     			archives = analyseServiceItfI.findArchiveByCriteria(archiveCriteria, false);

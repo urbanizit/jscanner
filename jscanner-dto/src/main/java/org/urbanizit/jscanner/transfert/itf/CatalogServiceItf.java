@@ -18,7 +18,7 @@ import org.urbanizit.jscanner.transfert.view.ArchiveView;
 public interface CatalogServiceItf {
 	
 	
-	Archive getArchive(final Long archiveId, final Boolean deepSearch, final List<ArchiveView> views)	throws Exception;
+	Archive getArchive(final Long archiveId, final List<ArchiveView> views)	throws Exception;
 	
 	ClassFile getClassFile(final Long classFileId) throws Exception;
 	

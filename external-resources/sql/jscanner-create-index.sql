@@ -30,8 +30,15 @@ CREATE INDEX method_call_signature_idx ON method_call (method_signature_id);
 CREATE INDEX method_call_class_name_idx ON method_call (CLASS_NAME_ID);
 CREATE INDEX method_call_class_file_idx ON method_call (CLASS_FILE_ID);
 
+
+
+
+---- Only
 CREATE INDEX cfcn_class_file_idx ON class_file_class_name (CLASS_FILE_ID);
 CREATE INDEX cfcn_class_name_idx ON class_file_class_name (CLASS_NAME_ID);
+
+CREATE INDEX upper_methodname_idx ON method(upper(name));
+
 
 
 --CREATE INDEX cfcn_class_file_idx ON class_file_class_name (CLASS_FILE_CLASS_FILE_ID);

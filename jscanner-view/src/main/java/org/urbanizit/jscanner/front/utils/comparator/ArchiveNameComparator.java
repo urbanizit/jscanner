@@ -5,6 +5,10 @@ import java.util.Comparator;
 import org.urbanizit.jscanner.transfert.Archive;
 
 
+/**
+ * @author ldassonville
+ *
+ */
 public class ArchiveNameComparator implements Comparator<Archive>{
 
 	@Override

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -60,7 +59,7 @@ public class ArchiveController {
     	
     	log.debug(" Begin : ArchiveController ");
 		try {
-			archiveDtoI = catalogServiceItfI.getArchive(archiveId, true, Arrays.asList(ArchiveView.FIRST_LEVEL_CLASS));
+			archiveDtoI = catalogServiceItfI.getArchive(archiveId, Arrays.asList(ArchiveView.FIRST_LEVEL_CLASS, ArchiveView.EMBBEDED_ARCHIVES));
 			if(archiveDtoI != null){
 				Collections.sort(archiveDtoI.getClassFiles(), new ClassFileCNComparator());
 				

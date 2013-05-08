@@ -109,8 +109,15 @@ public abstract class DtoI2BoConverter{
 		out.setClassNames(in.getCanonicalNames());
 		out.setPackageNames(in.getPackageNames());	
 		out.setArchiveNames(in.getArchiveNames());		
-		out.setMethodCalled(in.getMethodCalled());	
-		out.setMethodProvided(in.getMethodProvided());	
+
+		out.setProvidedMethodName(in.getProvidedMethodName());
+		out.setConsumedMethodName(in.getConsumedMethodName());
+		
+		//TODO normalize names
+		out.setCalledMethodIds(in.getMethodCalledIds());
+		out.setProvidedMethodIds(in.getMethodProvidedIds());
+
+		
 		out.setCompagnyFile(in.getCompagnyFile());
 		return out;
 	}	

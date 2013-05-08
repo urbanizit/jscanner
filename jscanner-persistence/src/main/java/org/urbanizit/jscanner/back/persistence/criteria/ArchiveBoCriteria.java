@@ -13,9 +13,13 @@ public class ArchiveBoCriteria implements Serializable{
 	private Collection<String> classNames;
 	private Collection<String> packageNames;
 	private Collection<String> canonicalNamesDependencies;
+	private String providedMethodName;
+	private String consumedMethodName;
 	
-	private Collection<Long> methodProvided;
-	private Collection<Long> methodCalled;
+	private Collection<Long> providedMethodIds;
+	private Collection<Long> calledMethodIds;
+		
+	
 	private Boolean compagnyFile;
 	
 	public void setArchiveIds(Collection<Long> archiveIds) {
@@ -67,20 +71,36 @@ public class ArchiveBoCriteria implements Serializable{
 		this.archiveNames = archiveNames;
 	}
 
-	public Collection<Long> getMethodProvided() {
-		return methodProvided;
+	public String getProvidedMethodName() {
+		return providedMethodName;
 	}
 
-	public void setMethodProvided(Collection<Long> methodProvided) {
-		this.methodProvided = methodProvided;
+	public void setProvidedMethodName(String providedMethodName) {
+		this.providedMethodName = providedMethodName;
 	}
 
-	public Collection<Long> getMethodCalled() {
-		return methodCalled;
+	public String getConsumedMethodName() {
+		return consumedMethodName;
 	}
 
-	public void setMethodCalled(Collection<Long> methodCalled) {
-		this.methodCalled = methodCalled;
+	public void setConsumedMethodName(String consumedMethodName) {
+		this.consumedMethodName = consumedMethodName;
+	}
+	
+	public Collection<Long> getProvidedMethodIds() {
+		return providedMethodIds;
+	}
+
+	public void setProvidedMethodIds(Collection<Long> providedMethodIds) {
+		this.providedMethodIds = providedMethodIds;
+	}
+
+	public Collection<Long> getCalledMethodIds() {
+		return calledMethodIds;
+	}
+
+	public void setCalledMethodIds(Collection<Long> calledMethodIds) {
+		this.calledMethodIds = calledMethodIds;
 	}
 
 	public Boolean getCompagnyFile() {
